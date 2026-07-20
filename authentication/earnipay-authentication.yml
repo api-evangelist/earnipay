@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/earnipay-e-invoicing-openapi-original.json
+docs: https://docs.earnipay.com/docs/authentication
+notes: >-
+  User-facing flows authenticate with a JWT bearer token obtained from
+  POST /v1/auth/login (register via POST /v1/auth/signup, verify with
+  POST /v1/auth/verify-email). Access tokens are refreshed via
+  POST /v1/auth/refresh and invalidated via POST /v1/auth/logout. Send the JWT
+  in the Authorization header as `Bearer <token>`. Third-party/server-to-server
+  integrations use a static API key sent in the `X-API-Key` header. No OAuth 2.0
+  authorization-server or scope surface is exposed.
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: JWT-auth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Enter JWT token
+  sources:
+  - openapi/earnipay-e-invoicing-openapi-original.json
+- name: API-Key
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  description: API Key for third-party integrations
+  sources:
+  - openapi/earnipay-e-invoicing-openapi-original.json
