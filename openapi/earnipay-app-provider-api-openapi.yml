@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App APP Provider API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: APP Provider
+  description: Third-party APP provider integration (Taxly) for FIRS submission
+paths:
+  /v1/api/v1/businesses/{businessId}/app/connection-test:
+    get:
+      operationId: AppProviderController_testConnection_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Connection test result
+      security:
+      - JWT-auth: []
+      summary: Test APP provider connection
+      tags:
+      - APP Provider
+  /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/submit:
+    post:
+      operationId: AppProviderController_submitInvoice_v1
+      parameters:
+      - name: invoiceId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice submitted successfully
+        '400':
+          description: Validation failed or submission error
+      security:
+      - JWT-auth: []
+      summary: Submit invoice to APP provider
+      tags:
+      - APP Provider
+  /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/payment-status:
+    patch:
+      operationId: AppProviderController_updatePaymentStatus_v1
+      parameters:
+      - name: invoiceId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Payment status updated successfully
+      security:
+      - JWT-auth: []
+      summary: Update invoice payment status in FIRS
+      tags:
+      - APP Provider
+  /v1/api/v1/businesses/{businessId}/app/invoices/search:
+    get:
+      operationId: AppProviderController_searchInvoices_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoices retrieved successfully
+      security:
+      - JWT-auth: []
+      summary: Search invoices from FIRS system
+      tags:
+      - APP Provider
+components:
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

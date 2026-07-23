@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Bank API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Bank
+paths:
+  /v1/banks/list:
+    get:
+      description: Retrieve a list of all supported banks from a provider.
+      operationId: BankController_getBankList_v1
+      parameters: []
+      responses:
+        '200':
+          description: Bank list retrieved successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Provider not found
+      security:
+      - JWT-auth: []
+      summary: Get list of banks
+      tags:
+      - Bank
+  /v1/banks/verify-account:
+    post:
+      description: Verify the details of a bank account.
+      operationId: BankController_verifyBankAccount_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyBankAccountDto'
+      responses:
+        '200':
+          description: Bank account verified successfully
+        '400':
+          description: Bad Request - Invalid input data
+        '401':
+          description: Unauthorized
+        '404':
+          description: Provider not found
+      security:
+      - JWT-auth: []
+      summary: Verify bank account
+      tags:
+      - Bank
+components:
+  schemas:
+    VerifyBankAccountDto:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: Bank account number
+          example: 0123456789
+        bankCode:
+          type: string
+          description: Bank code
+          example: '033'
+      required:
+      - accountNumber
+      - bankCode
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

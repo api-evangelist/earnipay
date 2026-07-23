@@ -1,0 +1,311 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Team API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Team
+  description: Team member and invitation management
+paths:
+  /v1/team/invite:
+    post:
+      description: Send an invitation to join the business team. Only OWNER and ADMIN can invite members.
+      operationId: TeamController_inviteTeamMember_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteTeamMemberDto'
+      responses:
+        '201':
+          description: Invitation sent successfully
+        '400':
+          description: Bad Request - Invalid input or user already invited
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+        '409':
+          description: Conflict - User already a member or invitation pending
+      security:
+      - JWT-auth: []
+      summary: Invite team member
+      tags:
+      - Team
+  /v1/team:
+    get:
+      description: Retrieve team members with optional filters and pagination. Can include pending invitations.
+      operationId: TeamController_getTeam_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number
+        schema:
+          default: 1
+          example: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Items per page
+        schema:
+          default: 20
+          example: 20
+          type: number
+      - name: search
+        required: false
+        in: query
+        description: Search by name or email
+        schema:
+          example: john
+          type: string
+      - name: role
+        required: false
+        in: query
+        description: Filter by role
+        schema:
+          enum:
+          - OWNER
+          - ADMIN
+          - MANAGER
+          - CREATOR
+          - VIEWER
+          type: string
+      - name: includePendingInvitations
+        required: false
+        in: query
+        description: Include pending invitations
+        schema:
+          default: false
+          example: true
+          type: boolean
+      responses:
+        '200':
+          description: Team members retrieved successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+      security:
+      - JWT-auth: []
+      summary: Get team members
+      tags:
+      - Team
+  /v1/team/invitations/{token}/accept:
+    post:
+      description: Accept a team invitation using the token from the invitation email. New users must provide firstName, lastName, and password.
+      operationId: TeamController_acceptInvitation_v1
+      parameters:
+      - name: token
+        required: true
+        in: path
+        description: Invitation token
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptInvitationDto'
+      responses:
+        '200':
+          description: Invitation accepted successfully
+        '400':
+          description: Bad Request - Invitation expired or already accepted, or missing required fields for new users
+        '404':
+          description: Invitation not found
+        '409':
+          description: Conflict - Already a member
+      security:
+      - JWT-auth: []
+      summary: Accept team invitation
+      tags:
+      - Team
+  /v1/team/invitations/{id}:
+    delete:
+      description: Cancel a pending team invitation. Only OWNER and ADMIN can revoke invitations.
+      operationId: TeamController_revokeInvitation_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invitation ID
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invitation revoked successfully
+        '400':
+          description: Bad Request - Only pending invitations can be revoked
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Invitation not found
+      security:
+      - JWT-auth: []
+      summary: Revoke team invitation
+      tags:
+      - Team
+  /v1/team/members/{id}/role:
+    patch:
+      description: Update the role of a team member. Only OWNER and ADMIN can update roles.
+      operationId: TeamController_updateMemberRole_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Team member ID (BusinessUser ID)
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberRoleDto'
+      responses:
+        '200':
+          description: Member role updated successfully
+        '400':
+          description: Bad Request - Cannot change owner role or assign owner role
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Team member not found
+      security:
+      - JWT-auth: []
+      summary: Update team member role
+      tags:
+      - Team
+  /v1/team/members/{id}:
+    delete:
+      description: Remove a member from the team. Only OWNER and ADMIN can remove members.
+      operationId: TeamController_removeMember_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Team member ID (BusinessUser ID)
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Team member removed successfully
+        '400':
+          description: Bad Request - Cannot remove owner or self
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Team member not found
+      security:
+      - JWT-auth: []
+      summary: Remove team member
+      tags:
+      - Team
+components:
+  schemas:
+    UpdateMemberRoleDto:
+      type: object
+      properties:
+        role:
+          type: string
+          description: New role for the team member
+          enum:
+          - OWNER
+          - ADMIN
+          - MANAGER
+          - CREATOR
+          - VIEWER
+          example: MANAGER
+      required:
+      - role
+    AcceptInvitationDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name (required for new users)
+          example: John
+        lastName:
+          type: string
+          description: Last name (required for new users)
+          example: Doe
+        password:
+          type: string
+          description: Password (required for new users, min 8 chars)
+          example: MyP@ssw0rd
+    InviteTeamMemberDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email address of the person to invite
+          example: john.doe@example.com
+        role:
+          type: string
+          description: Role to assign to the team member
+          enum:
+          - OWNER
+          - ADMIN
+          - MANAGER
+          - CREATOR
+          - VIEWER
+          example: CREATOR
+      required:
+      - email
+      - role
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

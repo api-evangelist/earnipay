@@ -1,0 +1,143 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Users API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Users
+  description: User profile management
+paths:
+  /v1/users/me:
+    get:
+      description: Retrieve the authenticated user's profile information including completion status
+      operationId: UserController_getCurrentUser_v1
+      parameters: []
+      responses:
+        '200':
+          description: User profile retrieved successfully
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: User not found
+      security:
+      - JWT-auth: []
+      summary: Get current user profile
+      tags:
+      - Users
+    patch:
+      description: Update the authenticated user's profile information (first name, last name, phone)
+      operationId: UserController_updateProfile_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDto'
+      responses:
+        '200':
+          description: Profile updated successfully
+        '400':
+          description: Bad Request - Invalid input data
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: User not found
+      security:
+      - JWT-auth: []
+      summary: Update user profile
+      tags:
+      - Users
+  /v1/users/change-password:
+    post:
+      description: Change the authenticated user's password. Requires current password for verification. Not available for OAuth users.
+      operationId: UserController_changePassword_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordDto'
+      responses:
+        '200':
+          description: Password changed successfully
+        '400':
+          description: Bad Request - Invalid input or OAuth account
+        '401':
+          description: Unauthorized - Invalid current password or missing JWT token
+        '404':
+          description: User not found
+      security:
+      - JWT-auth: []
+      summary: Change user password
+      tags:
+      - Users
+  /v1/users/me/completion:
+    get:
+      description: Check the completion status of user profile with percentage and missing fields
+      operationId: UserController_getProfileCompletion_v1
+      parameters: []
+      responses:
+        '200':
+          description: Profile completion status retrieved
+        '401':
+          description: Unauthorized - Invalid or missing JWT token
+        '404':
+          description: User not found
+      security:
+      - JWT-auth: []
+      summary: Get profile completion status
+      tags:
+      - Users
+components:
+  schemas:
+    UpdateUserDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: User first name
+          example: John
+          minLength: 2
+          maxLength: 50
+        lastName:
+          type: string
+          description: User last name
+          example: Doe
+          minLength: 2
+          maxLength: 50
+        phone:
+          type: string
+          description: User phone number (Nigerian format)
+          example: '+2348012345678'
+    ChangePasswordDto:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+          description: Current password
+          example: CurrentPass123!
+        newPassword:
+          type: string
+          description: New password (min 8 chars, uppercase, lowercase, number/special char)
+          example: NewSecurePass123!
+          minLength: 8
+      required:
+      - currentPassword
+      - newPassword
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

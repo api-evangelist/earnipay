@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App IRN Generator API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: IRN Generator
+  description: Generate FIRS-compliant Invoice Reference Numbers
+paths:
+  /v1/irn-generator/generate:
+    post:
+      description: 'Generate a FIRS-compliant IRN from invoice number, service ID, and issue date. Format: {InvoiceNumber}-{ServiceID}-{YYYYMMDD}'
+      operationId: IrnGeneratorController_generateIRN_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateIrnDto'
+      responses:
+        '200':
+          description: IRN generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateIrnResponse'
+        '400':
+          description: Bad Request - Invalid invoice number or service ID format
+        '401':
+          description: Unauthorized
+      security:
+      - JWT-auth: []
+      summary: Generate Invoice Reference Number (IRN)
+      tags:
+      - IRN Generator
+components:
+  schemas:
+    GenerateIrnDto:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+          description: Preferred invoice number (alphanumeric, no special characters)
+          example: INV0001
+        serviceId:
+          type: string
+          description: FIRS Service ID (8 alphanumeric characters)
+          example: 94ND90NR
+        issueDate:
+          type: string
+          description: Invoice issuance date (ISO 8601 format)
+          example: '2024-06-11T00:00:00.000Z'
+      required:
+      - invoiceNumber
+      - serviceId
+      - issueDate
+    GenerateIrnResponse:
+      type: object
+      properties:
+        irn:
+          type: string
+          description: Generated Invoice Reference Number
+          example: INV0001-94ND90NR-20240611
+        components:
+          type: object
+          description: Components of the IRN
+          example:
+            invoiceNumber: INV0001
+            serviceId: 94ND90NR
+            datestamp: '20240611'
+      required:
+      - irn
+      - components
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

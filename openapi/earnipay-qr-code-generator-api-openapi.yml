@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App QR Code Generator API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: QR Code Generator
+  description: Generate FIRS-compliant encrypted QR codes for invoices
+paths:
+  /v1/qr-generator/generate:
+    post:
+      description: "Generate a QR code for an invoice by encrypting the IRN with the business's cryptographic keys.\n\n**Process:**\n1. Upload crypto_keys.txt file (downloaded from FIRS dashboard)\n2. Provide IRN (Invoice Reference Number)\n3. System appends Unix timestamp to IRN\n4. System encrypts payload with RSA public key from uploaded file\n5. System generates QR code from encrypted data\n6. Returns QR code as Base64 and Data URL\n\n**FIRS Requirements:**\n- Error correction level H (30% recovery)\n- Minimum 300x300 pixels\n- Contains encrypted IRN with timestamp and certificate hash\n\n**File Format:**\nThe crypto_keys.txt file should contain JSON with public_key and certificate (both base64 encoded):\n```json\n{\n  \"public_key\": \"LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0K...\",\n  \"certificate\": \"bEF0V3FJbmo5cVZYbEdCblB4QVpjMG9HVWFrc29GM2hiYWFkYWMyODRBUT0=\"\n}\n```"
+      operationId: QrGeneratorController_generateQRCode_v1
+      parameters: []
+      requestBody:
+        required: true
+        description: QR Code generation request with crypto keys file
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - irn
+              - cryptoKeysFile
+              properties:
+                irn:
+                  type: string
+                  description: Invoice Reference Number (IRN)
+                  example: INV0001-94ND90NR-20240611
+                cryptoKeysFile:
+                  type: string
+                  format: binary
+                  description: Crypto keys file (crypto_keys.txt downloaded from FIRS)
+                errorCorrectionLevel:
+                  type: string
+                  enum:
+                  - L
+                  - M
+                  - Q
+                  - H
+                  description: QR code error correction level (H = High 30% recovery, recommended)
+                  default: H
+                width:
+                  type: number
+                  description: QR code width in pixels (FIRS requires minimum 300x300)
+                  default: 300
+                  minimum: 100
+                  maximum: 1000
+      responses:
+        '200':
+          description: QR code generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateQrCodeResponse'
+        '400':
+          description: Bad Request - Invalid IRN, crypto keys file, or encryption failed
+        '401':
+          description: Unauthorized
+      security:
+      - JWT-auth: []
+      summary: Generate FIRS-compliant QR Code
+      tags:
+      - QR Code Generator
+components:
+  schemas:
+    GenerateQrCodeResponse:
+      type: object
+      properties:
+        base64:
+          type: string
+          description: Base64 encoded QR code image (PNG format) for storage
+          example: iVBORw0KGgoAAAANSUhEUgAA...
+        dataURL:
+          type: string
+          description: Data URL for direct embedding in HTML/PDF
+          example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...
+        size:
+          type: number
+          description: QR code size in bytes
+          example: 12345
+        irn:
+          type: string
+          description: IRN that was encoded in the QR code
+          example: INV0001-94ND90NR-20240611
+        encryptedData:
+          type: string
+          description: Encrypted data that was encoded in the QR code (for debugging)
+          example: aLI+LP+gVeA4dTMTYAdemTMOnIY67d0AB1pmH2QXXN2k...
+      required:
+      - base64
+      - dataURL
+      - size
+      - irn
+      - encryptedData
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

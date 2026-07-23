@@ -1,0 +1,330 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Products API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Products
+paths:
+  /v1/products:
+    post:
+      description: Create a new product for the current business. Product names must be unique per business.
+      operationId: ProductController_createProduct_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductDto'
+      responses:
+        '201':
+          description: Product created successfully
+        '400':
+          description: Bad Request - Invalid input data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+        '409':
+          description: Conflict - Product name already exists
+      security:
+      - JWT-auth: []
+      summary: Create new product
+      tags:
+      - Products
+    get:
+      description: Retrieve paginated list of products with search, filter, and sort capabilities.
+      operationId: ProductController_getProducts_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number
+        schema:
+          minimum: 1
+          default: 1
+          example: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Items per page (max 100)
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+          type: number
+      - name: search
+        required: false
+        in: query
+        description: Search in name, description
+        schema:
+          example: coffee
+          type: string
+      - name: taxCategory
+        required: false
+        in: query
+        description: Filter by tax category
+        schema:
+          enum:
+          - STANDARD
+          - ZERO_RATED
+          - EXEMPT
+          - REDUCED
+          - CUSTOM
+          type: string
+      - name: isActive
+        required: false
+        in: query
+        description: Filter by active status
+        schema:
+          example: true
+          type: boolean
+      - name: dateFrom
+        required: false
+        in: query
+        description: Filter by creation date from (YYYY-MM-DD)
+        schema:
+          example: '2024-01-01'
+          type: string
+      - name: dateTo
+        required: false
+        in: query
+        description: Filter by creation date to (YYYY-MM-DD)
+        schema:
+          example: '2024-12-31'
+          type: string
+      - name: sortBy
+        required: false
+        in: query
+        description: Sort field
+        schema:
+          enum:
+          - name
+          - unitPrice
+          - createdAt
+          - updatedAt
+          type: string
+      - name: sortOrder
+        required: false
+        in: query
+        description: Sort order
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      responses:
+        '200':
+          description: Products retrieved successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+      security:
+      - JWT-auth: []
+      summary: Get products list
+      tags:
+      - Products
+  /v1/products/{id}:
+    get:
+      description: Retrieve detailed information about a specific product.
+      operationId: ProductController_getProductById_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Product ID
+        schema:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      responses:
+        '200':
+          description: Product details retrieved successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this product's business
+        '404':
+          description: Product not found
+      security:
+      - JWT-auth: []
+      summary: Get product details
+      tags:
+      - Products
+    patch:
+      description: Update product information. Product name must remain unique per business.
+      operationId: ProductController_updateProduct_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Product ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductDto'
+      responses:
+        '200':
+          description: Product updated successfully
+        '400':
+          description: Bad Request - Invalid input data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this product's business
+        '404':
+          description: Product not found
+        '409':
+          description: Conflict - Product name already exists
+      security:
+      - JWT-auth: []
+      summary: Update product
+      tags:
+      - Products
+    delete:
+      description: Soft delete a product. The product will no longer appear in your catalog.
+      operationId: ProductController_deleteProduct_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Product ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Product deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this product's business
+        '404':
+          description: Product not found
+      security:
+      - JWT-auth: []
+      summary: Delete product
+      tags:
+      - Products
+components:
+  schemas:
+    CreateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Product name
+          example: Premium Coffee Beans
+          minLength: 2
+          maxLength: 200
+        description:
+          type: string
+          description: Product description
+          example: High-quality Arabica coffee beans from Ethiopia
+        unitPrice:
+          type: number
+          description: Unit price in the base currency
+          example: 5000
+          minimum: 0
+        taxCategory:
+          type: string
+          description: Tax category for the product
+          enum:
+          - STANDARD
+          - ZERO_RATED
+          - EXEMPT
+          - REDUCED
+          - CUSTOM
+          default: STANDARD
+          example: STANDARD
+        taxPercent:
+          type: number
+          description: Tax percentage (0-100)
+          example: 7.5
+          minimum: 0
+          maximum: 100
+        unit:
+          type: string
+          description: Unit of measurement
+          example: kg
+          default: unit
+      required:
+      - name
+      - unitPrice
+      - taxPercent
+    UpdateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Product name
+          example: Premium Coffee Beans
+          minLength: 2
+          maxLength: 200
+        description:
+          type: string
+          description: Product description
+          example: High-quality Arabica coffee beans from Ethiopia
+        unitPrice:
+          type: number
+          description: Unit price in the base currency
+          example: 5500
+          minimum: 0
+        taxCategory:
+          type: string
+          description: Tax category for the product
+          enum:
+          - STANDARD
+          - ZERO_RATED
+          - EXEMPT
+          - REDUCED
+          - CUSTOM
+          example: STANDARD
+        taxPercent:
+          type: number
+          description: Tax percentage (0-100)
+          example: 7.5
+          minimum: 0
+          maximum: 100
+        unit:
+          type: string
+          description: Unit of measurement
+          example: kg
+        isActive:
+          type: boolean
+          description: Whether the product is active
+          example: true
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: App
+paths:
+  /v1:
+    get:
+      operationId: AppController_getHello_v1
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - App
+components:
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

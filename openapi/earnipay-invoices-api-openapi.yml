@@ -1,0 +1,760 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Invoices API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Invoices
+  description: Invoice creation, management, and FIRS validation
+paths:
+  /v1/invoices:
+    post:
+      description: Create a new invoice with line items. IRN is automatically generated.
+      operationId: InvoiceController_createInvoice_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvoiceDto'
+      responses:
+        '201':
+          description: Invoice created successfully
+        '400':
+          description: Bad Request - Invalid input or customer not found
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+      security:
+      - JWT-auth: []
+      summary: Create new invoice
+      tags:
+      - Invoices
+    get:
+      description: Retrieve paginated list of invoices with search, filter, and sort capabilities.
+      operationId: InvoiceController_getInvoices_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        description: Business ID
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Page number
+        schema:
+          minimum: 1
+          default: 1
+          example: 1
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Items per page
+        schema:
+          minimum: 1
+          maximum: 100
+          default: 20
+          example: 20
+          type: number
+      - name: search
+        required: false
+        in: query
+        description: Search query (searches in IRN, customer name)
+        schema:
+          example: INV001
+          type: string
+      - name: status
+        required: false
+        in: query
+        description: Filter by status
+        schema:
+          enum:
+          - DRAFT
+          - PENDING_APPROVAL
+          - APPROVED
+          - PENDING
+          - SUBMITTED
+          - FIRS_APPROVED
+          - FIRS_REJECTED
+          - PAID
+          - CANCELLED
+          type: string
+      - name: invoiceType
+        required: false
+        in: query
+        description: Filter by invoice type
+        schema:
+          enum:
+          - STANDARD
+          - PROFORMA
+          - CREDIT_NOTE
+          - DEBIT_NOTE
+          type: string
+      - name: customerId
+        required: false
+        in: query
+        description: Filter by customer ID
+        schema:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      - name: dateFrom
+        required: false
+        in: query
+        description: Filter by issue date (from)
+        schema:
+          example: '2024-01-01'
+          type: string
+      - name: dateTo
+        required: false
+        in: query
+        description: Filter by issue date (to)
+        schema:
+          example: '2024-12-31'
+          type: string
+      - name: sortBy
+        required: false
+        in: query
+        description: Sort field
+        schema:
+          enum:
+          - irn
+          - issueDate
+          - dueDate
+          - total
+          - status
+          - createdAt
+          type: string
+      - name: sortOrder
+        required: false
+        in: query
+        description: Sort order
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      responses:
+        '200':
+          description: Invoices retrieved successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+      security:
+      - JWT-auth: []
+      summary: Get invoices list
+      tags:
+      - Invoices
+  /v1/invoices/{id}/approve:
+    post:
+      description: Approve a PENDING_APPROVAL invoice. Only OWNER and ADMIN can approve.
+      operationId: InvoiceController_approveInvoice_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveInvoiceDto'
+      responses:
+        '200':
+          description: Invoice approved successfully
+        '400':
+          description: Invoice not in PENDING_APPROVAL status
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Approve invoice
+      tags:
+      - Invoices
+  /v1/invoices/{id}/reject:
+    post:
+      description: Reject a PENDING_APPROVAL invoice. Only OWNER and ADMIN can reject. Invoice returns to DRAFT.
+      operationId: InvoiceController_rejectInvoice_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RejectInvoiceDto'
+      responses:
+        '200':
+          description: Invoice rejected successfully
+        '400':
+          description: Invoice not in PENDING_APPROVAL status
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Reject invoice
+      tags:
+      - Invoices
+  /v1/invoices/{id}:
+    get:
+      description: Retrieve detailed information about a specific invoice including all line items.
+      operationId: InvoiceController_getInvoiceById_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice details retrieved successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this invoice's business
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Get invoice details
+      tags:
+      - Invoices
+    patch:
+      description: Update invoice information. Only DRAFT invoices can be updated.
+      operationId: InvoiceController_updateInvoice_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceDto'
+      responses:
+        '200':
+          description: Invoice updated successfully
+        '400':
+          description: Bad Request - Invalid input or invoice cannot be updated
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this invoice's business
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Update invoice
+      tags:
+      - Invoices
+    delete:
+      description: Cancel an invoice. Cannot cancel submitted or approved invoices.
+      operationId: InvoiceController_cancelInvoice_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice cancelled successfully
+        '400':
+          description: Bad Request - Invoice cannot be cancelled
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this invoice's business
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Cancel invoice
+      tags:
+      - Invoices
+  /v1/invoices/{id}/generate-qr:
+    post:
+      description: Generate FIRS-compliant QR code for the invoice. Requires business FIRS configuration.
+      operationId: InvoiceController_generateQrCode_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: QR code generated successfully
+        '400':
+          description: Bad Request - FIRS crypto keys not configured
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this invoice's business
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Generate QR code
+      tags:
+      - Invoices
+  /v1/invoices/{id}/pdf:
+    get:
+      description: Download invoice as PDF file. QR code will be included if generated.
+      operationId: InvoiceController_downloadPdf_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: PDF file downloaded successfully
+          headers:
+            Content-Type:
+              description: application/pdf
+            Content-Disposition:
+              description: attachment; filename="invoice-{IRN}.pdf"
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this invoice's business
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Download invoice PDF
+      tags:
+      - Invoices
+  /v1/invoices/{id}/submit-to-app:
+    post:
+      description: Submit an APPROVED invoice to the APP provider (FIRS).
+      operationId: InvoiceController_submitToApp_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Invoice ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invoice submitted successfully
+        '400':
+          description: Invoice not in APPROVED status
+        '404':
+          description: Invoice not found
+      security:
+      - JWT-auth: []
+      summary: Submit invoice to APP provider
+      tags:
+      - Invoices
+  /v1/invoices/validate:
+    post:
+      description: 'Validate invoice data structure without creating an invoice.
+
+
+        This endpoint checks if your invoice data matches the FIRS requirements:
+
+        - Required fields presence
+
+        - IRN format validation
+
+        - Party information completeness (supplier & customer)
+
+        - Line items structure
+
+        - Tax totals validation
+
+        - Legal monetary totals calculations
+
+
+        Use this before submitting invoices to FIRS to catch validation errors early.'
+      operationId: InvoiceController_validateInvoiceData_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateInvoiceDataDto'
+      responses:
+        '200':
+          description: Validation completed (check the response for validation results)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateInvoiceResponse'
+        '401':
+          description: Unauthorized
+      security:
+      - JWT-auth: []
+      summary: Validate invoice data against FIRS schema
+      tags:
+      - Invoices
+components:
+  schemas:
+    ApproveInvoiceDto:
+      type: object
+      properties:
+        comments:
+          type: string
+          description: Optional comments for the approval
+          example: Looks good, approved.
+    CreateInvoiceDto:
+      type: object
+      properties:
+        invoiceType:
+          type: string
+          description: Invoice type
+          example: STANDARD
+          enum:
+          - STANDARD
+          - PROFORMA
+          - CREDIT_NOTE
+          - DEBIT_NOTE
+          default: STANDARD
+        customerId:
+          type: string
+          description: Customer ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        issueDate:
+          type: string
+          description: Invoice issue date (ISO 8601)
+          example: '2025-10-25T00:00:00.000Z'
+        dueDate:
+          type: string
+          description: Invoice due date (ISO 8601)
+          example: '2025-11-01T00:00:00.000Z'
+        items:
+          description: Invoice items (line items)
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItemDto'
+        paymentTerms:
+          type: string
+          description: Payment terms
+          example: Payment due within 7 days
+        paymentMethod:
+          type: string
+          description: Payment method
+          example: Bank Transfer
+          enum:
+          - Bank Transfer
+          - Cash
+          - Credit Card
+          - Mobile Money
+          - Other
+        paymentDetails:
+          type: string
+          description: Payment details (JSON string with account info). Ignored if paymentDetailId is provided.
+          example: '{"accountName":"John Doe Enterprises","accountNumber":"09090828929","bankName":"Access Bank"}'
+        paymentDetailId:
+          type: string
+          description: ID of a saved PaymentDetail to use. Overrides paymentDetails field.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        notes:
+          type: string
+          description: Additional notes for the customer
+          example: Thank you for your business
+        internalNotes:
+          type: string
+          description: Internal notes (not visible to customer)
+          example: Rush order - deliver before Nov 1st
+      required:
+      - customerId
+      - issueDate
+      - items
+    UpdateInvoiceDto:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Customer ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        issueDate:
+          type: string
+          description: Invoice issue date (ISO 8601)
+          example: '2025-10-25T00:00:00.000Z'
+        dueDate:
+          type: string
+          description: Invoice due date (ISO 8601)
+          example: '2025-11-01T00:00:00.000Z'
+        items:
+          description: Invoice items (replaces all existing items)
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItemDto'
+        paymentTerms:
+          type: string
+          description: Payment terms
+          example: Payment due within 7 days
+        paymentMethod:
+          type: string
+          description: Payment method
+          example: Bank Transfer
+        paymentDetails:
+          type: string
+          description: Payment details (JSON string)
+          example: '{"accountName":"John Doe Enterprises","accountNumber":"09090828929","bankName":"Access Bank"}'
+        notes:
+          type: string
+          description: Additional notes
+          example: Thank you for your business
+        internalNotes:
+          type: string
+          description: Internal notes
+          example: Rush order
+    ValidateInvoiceDataDto:
+      type: object
+      properties:
+        irn:
+          type: string
+          description: Invoice Reference Number (IRN)
+          example: INV0001-94ND90NR-20240611
+        issue_date:
+          type: string
+          description: Invoice issue date (ISO format YYYY-MM-DD)
+          example: '2024-06-11'
+        invoice_type_code:
+          type: string
+          description: Invoice type code (e.g., 380 = Commercial invoice, 381 = Credit note)
+          example: '380'
+        document_currency_code:
+          type: string
+          description: Document currency code
+          example: NGN
+        tax_currency_code:
+          type: string
+          description: Tax currency code
+          example: NGN
+        accounting_supplier_party:
+          type: object
+          description: Supplier/seller information
+          example:
+            party_name: ABC Company Ltd
+            tin: 12345678-0001
+            email: contact@abc.com
+            telephone: '+2348012345678'
+            postal_address:
+              street_name: 123 Main Street
+              city_name: Lagos
+              country: NG
+        accounting_customer_party:
+          type: object
+          description: Customer/buyer information
+          example:
+            party_name: XYZ Company Ltd
+            tin: 87654321-0001
+            email: contact@xyz.com
+            telephone: '+2348087654321'
+            postal_address:
+              street_name: 456 Second Avenue
+              city_name: Abuja
+              country: NG
+        invoice_line:
+          type: array
+          description: Invoice line items
+          example:
+          - invoiced_quantity: 10
+            line_extension_amount: 10000
+            item:
+              name: Product ABC
+              description: Product description
+            price:
+              price_amount: 1000
+              base_quantity: 1
+        legal_monetary_total:
+          type: object
+          description: Legal monetary totals
+          example:
+            line_extension_amount: 10000
+            tax_exclusive_amount: 10000
+            tax_inclusive_amount: 10750
+            payable_amount: 10750
+        tax_total:
+          type: array
+          description: Tax totals (array)
+          example:
+          - tax_amount: 750
+            tax_subtotal:
+            - taxable_amount: 10000
+              tax_amount: 750
+              tax_category:
+                id: S
+                percent: 7.5
+        due_date:
+          type: string
+          description: Invoice due date (ISO format YYYY-MM-DD)
+          example: '2024-07-11'
+        note:
+          type: string
+          description: Invoice notes
+          example: 'Payment terms: Net 30'
+      required:
+      - irn
+      - issue_date
+      - invoice_type_code
+      - document_currency_code
+      - tax_currency_code
+      - accounting_supplier_party
+      - accounting_customer_party
+      - invoice_line
+      - legal_monetary_total
+      - tax_total
+    ValidateInvoiceResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: Whether the invoice data is valid according to FIRS schema
+          example: true
+        errors:
+          description: List of validation errors (empty if valid)
+          example: []
+          type: array
+          items:
+            type: string
+        warnings:
+          description: List of warnings for non-critical issues
+          example:
+          - TIN format should follow XX-XXXX-XXXX pattern
+          type: array
+          items:
+            type: string
+        details:
+          type: object
+          description: Detailed validation breakdown
+          example:
+            hasRequiredFields: true
+            hasValidIRN: true
+            hasValidParties: true
+            hasValidLineItems: true
+            hasValidTotals: true
+            hasValidTaxTotal: true
+        summary:
+          type: object
+          description: Summary of what was validated
+          example:
+            totalLineItems: 1
+            totalAmount: 10750
+            currencyCode: NGN
+      required:
+      - valid
+      - errors
+      - warnings
+      - details
+    RejectInvoiceDto:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Reason for rejection
+          example: Incorrect pricing on line item 2
+        comments:
+          type: string
+          description: Additional comments
+      required:
+      - reason
+    InvoiceItemDto:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Item description
+          example: Bags of sugar
+        quantity:
+          type: number
+          description: Quantity
+          example: 10
+          minimum: 0.01
+        unitPrice:
+          type: number
+          description: Unit price
+          example: 30000
+          minimum: 0
+        taxPercent:
+          type: number
+          description: Tax percentage
+          example: 7.5
+          minimum: 0
+          maximum: 100
+        discount:
+          type: number
+          description: Discount amount
+          example: 0
+          default: 0
+          minimum: 0
+        productCode:
+          type: string
+          description: Product/Service code
+          example: PROD-001
+        unit:
+          type: string
+          description: Unit of measurement
+          example: bags
+          default: unit
+      required:
+      - description
+      - quantity
+      - unitPrice
+      - taxPercent
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

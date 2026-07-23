@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Authentication API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Authentication
+  description: User authentication and authorization endpoints
+paths:
+  /v1/auth/signup:
+    post:
+      operationId: AuthController_signup_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupDto'
+      responses:
+        '201':
+          description: User registered successfully. Verification code sent to email.
+        '409':
+          description: User already exists
+      summary: Register new user account
+      tags:
+      - Authentication
+  /v1/auth/verify-email:
+    post:
+      operationId: AuthController_verifyEmail_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyEmailDto'
+      responses:
+        '200':
+          description: Email verified successfully. User is logged in.
+        '400':
+          description: Invalid or expired verification code
+      summary: Verify email with code
+      tags:
+      - Authentication
+  /v1/auth/resend-code:
+    post:
+      operationId: AuthController_resendVerificationCode_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendCodeDto'
+      responses:
+        '200':
+          description: Verification code sent
+        '400':
+          description: User not found or already verified
+      summary: Resend verification code
+      tags:
+      - Authentication
+  /v1/auth/login:
+    post:
+      operationId: AuthController_login_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Invalid credentials or email not verified
+      summary: Login with email and password
+      tags:
+      - Authentication
+  /v1/auth/refresh:
+    post:
+      operationId: AuthController_refreshToken_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenDto'
+      responses:
+        '200':
+          description: Tokens refreshed successfully
+        '401':
+          description: Invalid or expired refresh token
+      summary: Refresh access token
+      tags:
+      - Authentication
+  /v1/auth/logout:
+    post:
+      operationId: AuthController_logout_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenDto'
+      responses:
+        '200':
+          description: Logged out successfully
+      summary: Logout user (invalidate refresh token)
+      tags:
+      - Authentication
+  /v1/auth/forgot-password:
+    post:
+      operationId: AuthController_forgotPassword_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordDto'
+      responses:
+        '200':
+          description: If account exists, password reset link will be sent
+      summary: Request password reset link
+      tags:
+      - Authentication
+  /v1/auth/reset-password:
+    post:
+      operationId: AuthController_resetPassword_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordDto'
+      responses:
+        '200':
+          description: Password reset successfully. All sessions invalidated.
+        '400':
+          description: Invalid or expired reset token
+      summary: Reset password with token
+      tags:
+      - Authentication
+components:
+  schemas:
+    LoginDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+        password:
+          type: string
+          example: StrongP@ss123
+          description: User password
+      required:
+      - email
+      - password
+    ForgotPasswordDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+      required:
+      - email
+    ResendCodeDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+      required:
+      - email
+    RefreshTokenDto:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          description: Refresh token
+      required:
+      - refreshToken
+    VerifyEmailDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+        code:
+          type: string
+          example: '123456'
+          description: 6-digit verification code
+          minLength: 6
+          maxLength: 6
+      required:
+      - email
+      - code
+    ResetPasswordDto:
+      type: object
+      properties:
+        token:
+          type: string
+          example: abc123def456...
+          description: Password reset token from email
+        newPassword:
+          type: string
+          example: NewStrongP@ss123
+          description: New password
+          minLength: 8
+      required:
+      - token
+      - newPassword
+    SignupDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+        password:
+          type: string
+          example: StrongP@ss123
+          description: Password must be at least 8 characters with uppercase, lowercase, and number/special character
+          minLength: 8
+        firstName:
+          type: string
+          example: John
+          description: User first name (optional)
+        lastName:
+          type: string
+          example: Doe
+          description: User last name (optional)
+      required:
+      - email
+      - password
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

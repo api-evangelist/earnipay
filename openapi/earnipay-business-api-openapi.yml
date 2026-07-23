@@ -1,0 +1,676 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Business API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Business
+  description: Business profile management and FIRS configuration
+paths:
+  /v1/businesses/upload:
+    post:
+      description: Upload an image file (e.g. business logo) to S3. Returns a URL that can be used as logoUrl.
+      operationId: BusinessController_uploadFile_v1
+      parameters: []
+      requestBody:
+        required: true
+        description: File upload
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Image file (jpeg, png, gif, webp, svg)
+                folder:
+                  type: string
+                  description: Destination folder (defaults to "logos")
+                  default: logos
+      responses:
+        '200':
+          description: File uploaded successfully
+        '400':
+          description: Bad Request - Invalid file type or size
+        '401':
+          description: Unauthorized
+      security:
+      - JWT-auth: []
+      summary: Upload a file
+      tags:
+      - Business
+  /v1/businesses:
+    post:
+      description: Create a new business profile. User becomes the OWNER automatically.
+      operationId: BusinessController_createBusiness_v1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBusinessDto'
+      responses:
+        '201':
+          description: Business created successfully
+        '400':
+          description: Bad Request - Invalid input data
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - TIN already exists
+      security:
+      - JWT-auth: []
+      summary: Create new business
+      tags:
+      - Business
+    get:
+      description: Retrieve all businesses associated with the authenticated user
+      operationId: BusinessController_getUserBusinesses_v1
+      parameters: []
+      responses:
+        '200':
+          description: Businesses retrieved successfully
+        '401':
+          description: Unauthorized
+      security:
+      - JWT-auth: []
+      summary: Get user's businesses
+      tags:
+      - Business
+  /v1/businesses/{id}:
+    get:
+      description: Retrieve detailed information about a specific business
+      operationId: BusinessController_getBusinessById_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+      responses:
+        '200':
+          description: Business details retrieved successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Get business details
+      tags:
+      - Business
+    patch:
+      description: Update business profile information. Requires OWNER or ADMIN role.
+      operationId: BusinessController_updateBusiness_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBusinessDto'
+      responses:
+        '200':
+          description: Business updated successfully
+        '400':
+          description: Bad Request - Invalid input data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Update business
+      tags:
+      - Business
+    delete:
+      description: Delete a business. Only OWNER can delete. This is a soft delete.
+      operationId: BusinessController_deleteBusiness_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Business deleted successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Only OWNER can delete
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Delete business
+      tags:
+      - Business
+  /v1/businesses/{id}/settings:
+    patch:
+      description: Update business settings like requireApproval and autoSubmitToFirs. Only OWNER and ADMIN.
+      operationId: BusinessController_updateBusinessSettings_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBusinessSettingsDto'
+      responses:
+        '200':
+          description: Settings updated successfully
+        '403':
+          description: Forbidden - Insufficient permissions
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Update business settings
+      tags:
+      - Business
+  /v1/businesses/{id}/firs-config:
+    patch:
+      description: Configure FIRS settings including Business ID, Service ID, and crypto keys. Only OWNER can update.
+      operationId: BusinessController_updateFirsConfig_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFirsConfigDto'
+      responses:
+        '200':
+          description: FIRS configuration updated successfully
+        '400':
+          description: Bad Request - Invalid input or crypto keys format
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Only OWNER can update FIRS config
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Update FIRS configuration
+      tags:
+      - Business
+  /v1/businesses/{id}/crypto-keys:
+    patch:
+      description: Upload the crypto_keys.txt file from FIRS. Only OWNER can upload.
+      operationId: BusinessController_uploadCryptoKeys_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Crypto keys file upload
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - cryptoKeysFile
+              properties:
+                cryptoKeysFile:
+                  type: string
+                  format: binary
+                  description: Crypto keys file (.txt) downloaded from FIRS
+      responses:
+        '200':
+          description: Crypto keys uploaded successfully
+        '400':
+          description: Bad Request - Invalid file or format
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Only OWNER can upload crypto keys
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Upload crypto keys file
+      tags:
+      - Business
+  /v1/businesses/{id}/app-config:
+    patch:
+      description: Configure Access Point Provider (APP) connection details. Only OWNER can update.
+      operationId: BusinessController_updateAppConfig_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppConfigDto'
+      responses:
+        '200':
+          description: APP configuration updated successfully
+        '400':
+          description: Bad Request - Invalid input
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Only OWNER can update APP config
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Update APP configuration
+      tags:
+      - Business
+  /v1/businesses/{id}/test-app-connection:
+    post:
+      description: Test connection to Access Point Provider with provided credentials
+      operationId: BusinessController_testAppConnection_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestAppConnectionDto'
+      responses:
+        '200':
+          description: Connection test result
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Test APP connection
+      tags:
+      - Business
+  /v1/businesses/{id}/set-default:
+    post:
+      description: Set this business as the default for the authenticated user
+      operationId: BusinessController_setDefaultBusiness_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Default business updated successfully
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Set business as default
+      tags:
+      - Business
+  /v1/businesses/{id}/app-provider:
+    patch:
+      description: Select which Access Point Provider (APP) to use for FIRS invoice submission. Only OWNER can update.
+      operationId: BusinessController_updateAppProvider_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppProviderDto'
+      responses:
+        '200':
+          description: APP provider updated successfully
+        '400':
+          description: Bad Request - Unsupported provider
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Only OWNER can update
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Update APP provider
+      tags:
+      - Business
+  /v1/businesses/{id}/interswitch-credentials:
+    patch:
+      description: Save Interswitch ClientId and ClientSecret for FIRS invoice submission. Only OWNER can update.
+      operationId: BusinessController_updateInterswitchCredentials_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Interswitch credentials payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInterswitchCredentialsDto'
+      responses:
+        '200':
+          description: Interswitch credentials updated successfully
+        '400':
+          description: Bad Request - Invalid credentials format
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - Only OWNER can update
+        '404':
+          description: Business not found
+      security:
+      - JWT-auth: []
+      summary: Update Interswitch credentials
+      tags:
+      - Business
+  /v1/businesses/{id}/test-interswitch-connection:
+    post:
+      description: Test connection to Interswitch API with provided ClientId and ClientSecret
+      operationId: BusinessController_testInterswitchConnection_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Business ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Interswitch credentials payload for testing connection
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestInterswitchConnectionDto'
+      responses:
+        '200':
+          description: Connection test result
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - No access to this business
+      security:
+      - JWT-auth: []
+      summary: Test Interswitch connection
+      tags:
+      - Business
+  /v1/businesses/providers/supported:
+    get:
+      description: Get list of supported Access Point Providers (APP) for FIRS invoice submission
+      operationId: BusinessController_getSupportedProviders_v1
+      parameters: []
+      responses:
+        '200':
+          description: Supported providers retrieved successfully
+        '401':
+          description: Unauthorized
+      security:
+      - JWT-auth: []
+      summary: Get supported APP providers
+      tags:
+      - Business
+components:
+  schemas:
+    CreateBusinessDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Business name
+          example: Acme Corporation Ltd
+          minLength: 2
+          maxLength: 200
+        tin:
+          type: string
+          description: Tax Identification Number (TIN)
+          example: 12345678-0001
+        businessType:
+          type: string
+          description: Business type
+          example: Limited Liability Company
+          enum:
+          - Sole Proprietorship
+          - Partnership
+          - Limited Liability Company
+          - Corporation
+          - Non-Profit Organization
+          - Other
+        address:
+          type: string
+          description: Street address
+          example: 123 Lagos Street
+        city:
+          type: string
+          description: City
+          example: Lagos
+        state:
+          type: string
+          description: State/Province
+          example: Lagos State
+        country:
+          type: string
+          description: Country
+          example: Nigeria
+          default: Nigeria
+        postalCode:
+          type: string
+          description: Postal code
+          example: '100001'
+        logoUrl:
+          type: string
+          description: Logo URL (uploaded to S3)
+          example: https://s3.amazonaws.com/bucket/logo.png
+        firsEmail:
+          type: string
+          description: FIRS email for APP provider registration (e.g., Taxly)
+          example: business@company.com
+        firsPassword:
+          type: string
+          description: FIRS password for APP provider registration (e.g., Taxly)
+          example: SecurePassword123!
+          minLength: 8
+      required:
+      - name
+      - tin
+      - businessType
+      - address
+      - city
+      - state
+    UpdateInterswitchCredentialsDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Interswitch Client ID
+          example: your-client-id
+        clientSecret:
+          type: string
+          description: Interswitch Client Secret
+          example: your-client-secret
+      required:
+      - clientId
+      - clientSecret
+    TestAppConnectionDto:
+      type: object
+      properties:
+        appApiUrl:
+          type: string
+          description: APP API base URL
+          example: https://app-provider-api.com
+        appApiKey:
+          type: string
+          description: APP API key/credentials
+          example: sk_test_1234567890
+      required:
+      - appApiUrl
+      - appApiKey
+    UpdateAppProviderDto:
+      type: object
+      properties: {}
+    UpdateBusinessDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Business name
+          example: Acme Corporation Ltd
+          minLength: 2
+          maxLength: 200
+        businessType:
+          type: string
+          description: Business type
+          example: Limited Liability Company
+        address:
+          type: string
+          description: Street address
+          example: 123 Lagos Street
+        city:
+          type: string
+          description: City
+          example: Lagos
+        state:
+          type: string
+          description: State/Province
+          example: Lagos State
+        country:
+          type: string
+          description: Country
+          example: Nigeria
+        postalCode:
+          type: string
+          description: Postal code
+          example: '100001'
+        logoUrl:
+          type: string
+          description: Logo URL
+          example: https://s3.amazonaws.com/bucket/logo.png
+        autoSubmitToFirs:
+          type: boolean
+          description: Auto-submit invoices to FIRS
+          example: false
+    UpdateFirsConfigDto:
+      type: object
+      properties:
+        firsBusinessId:
+          type: string
+          description: FIRS Business ID
+          example: FIRS123456
+        firsServiceId:
+          type: string
+          description: FIRS Service ID (8 alphanumeric characters)
+          example: 94ND90NR
+      required:
+      - firsBusinessId
+      - firsServiceId
+    TestInterswitchConnectionDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Interswitch Client ID
+          example: your-client-id
+        clientSecret:
+          type: string
+          description: Interswitch Client Secret
+          example: your-client-secret
+      required:
+      - clientId
+      - clientSecret
+    UpdateAppConfigDto:
+      type: object
+      properties:
+        appApiUrl:
+          type: string
+          description: Access Point Provider (APP) API base URL
+          example: https://app-provider-api.com
+        appApiKey:
+          type: string
+          description: APP API key or credentials
+          example: sk_test_1234567890abcdef
+      required:
+      - appApiUrl
+      - appApiKey
+    UpdateBusinessSettingsDto:
+      type: object
+      properties:
+        requireApproval:
+          type: boolean
+          description: Whether invoices require approval before submission
+          example: true
+        autoSubmitToFirs:
+          type: boolean
+          description: Whether to auto-submit approved invoices to FIRS
+          example: false
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations

@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  title: Earnipay Invoicing App Payment Details API
+  description: FIRS-compliant e-invoicing platform API
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Payment Details
+paths:
+  /v1/payment-details:
+    post:
+      description: Create a reusable payment detail for a business.
+      operationId: PaymentDetailController_create_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentDetailDto'
+      responses:
+        '201':
+          description: Payment detail created successfully
+      security:
+      - JWT-auth: []
+      summary: Create payment detail
+      tags:
+      - Payment Details
+    get:
+      description: List all payment details for a business with pagination.
+      operationId: PaymentDetailController_findAll_v1
+      parameters:
+      - name: businessId
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        schema:
+          default: 1
+          type: string
+      - name: limit
+        required: false
+        in: query
+        schema:
+          default: 20
+          type: string
+      responses:
+        '200':
+          description: Payment details retrieved successfully
+      security:
+      - JWT-auth: []
+      summary: List payment details
+      tags:
+      - Payment Details
+  /v1/payment-details/{id}:
+    get:
+      operationId: PaymentDetailController_findOne_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Payment Detail ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Payment detail retrieved successfully
+        '404':
+          description: Payment detail not found
+      security:
+      - JWT-auth: []
+      summary: Get payment detail
+      tags:
+      - Payment Details
+    patch:
+      operationId: PaymentDetailController_update_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Payment Detail ID
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentDetailDto'
+      responses:
+        '200':
+          description: Payment detail updated successfully
+        '404':
+          description: Payment detail not found
+      security:
+      - JWT-auth: []
+      summary: Update payment detail
+      tags:
+      - Payment Details
+    delete:
+      operationId: PaymentDetailController_remove_v1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Payment Detail ID
+        schema:
+          type: string
+      - name: businessId
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Payment detail deleted successfully
+        '404':
+          description: Payment detail not found
+      security:
+      - JWT-auth: []
+      summary: Delete payment detail
+      tags:
+      - Payment Details
+components:
+  schemas:
+    CreatePaymentDetailDto:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Label for the payment detail
+          example: Company Access Bank Account
+        type:
+          type: string
+          description: Payment type
+          enum:
+          - BANK_TRANSFER
+          - MOBILE_MONEY
+          - CASH
+          - CREDIT_CARD
+          - OTHER
+          example: BANK_TRANSFER
+        details:
+          type: object
+          description: Payment details as JSON object
+          example:
+            accountName: John Doe Enterprises
+            accountNumber: 0909082892
+            bankName: Access Bank
+        isDefault:
+          type: boolean
+          description: Whether this is the default payment detail for the business
+          default: false
+      required:
+      - label
+      - type
+      - details
+    UpdatePaymentDetailDto:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Label for the payment detail
+          example: Company GTBank Account
+        type:
+          type: string
+          description: Payment type
+          enum:
+          - BANK_TRANSFER
+          - MOBILE_MONEY
+          - CASH
+          - CREDIT_CARD
+          - OTHER
+        details:
+          type: object
+          description: Payment details as JSON object
+        isDefault:
+          type: boolean
+          description: Whether this is the default payment detail
+  securitySchemes:
+    JWT-auth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
+    API-Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API Key for third-party integrations
