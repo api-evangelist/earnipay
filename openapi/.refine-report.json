@@ -1,0 +1,38 @@
+{
+  "provider": "earnipay",
+  "sources": [
+    "earnipay-app-api-openapi.yml",
+    "earnipay-app-provider-api-openapi.yml",
+    "earnipay-authentication-api-openapi.yml",
+    "earnipay-bank-api-openapi.yml",
+    "earnipay-business-api-openapi.yml",
+    "earnipay-customers-api-openapi.yml",
+    "earnipay-invoices-api-openapi.yml",
+    "earnipay-irn-generator-api-openapi.yml",
+    "earnipay-payment-details-api-openapi.yml",
+    "earnipay-products-api-openapi.yml",
+    "earnipay-qr-code-generator-api-openapi.yml",
+    "earnipay-team-api-openapi.yml",
+    "earnipay-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "earnipay-app-api-openapi.yml",
+    "earnipay-app-provider-api-openapi.yml",
+    "earnipay-authentication-api-openapi.yml",
+    "earnipay-bank-api-openapi.yml",
+    "earnipay-business-api-openapi.yml",
+    "earnipay-customers-api-openapi.yml",
+    "earnipay-invoices-api-openapi.yml",
+    "earnipay-irn-generator-api-openapi.yml",
+    "earnipay-payment-details-api-openapi.yml",
+    "earnipay-products-api-openapi.yml",
+    "earnipay-qr-code-generator-api-openapi.yml",
+    "earnipay-team-api-openapi.yml",
+    "earnipay-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

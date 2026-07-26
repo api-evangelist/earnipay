@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/earnipay-e-invoicing-openapi-original.json
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme; auth is JWT bearer + X-API-Key.
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses are standard JSON, not application/problem+json.
+- id: json-api
+  conforms: false
+- id: rest
+  conforms: true
+  evidence: Resource-oriented HTTP/JSON API with standard verbs and status codes.
+- id: openapi-3.0
+  conforms: true
+  evidence: Service publishes an OpenAPI 3.0.0 definition at /api/docs-json.
+- id: jwt-bearer
+  conforms: true
+  evidence: securityScheme JWT-auth (http bearer, bearerFormat JWT).
+- id: firs-einvoicing
+  conforms: true
+  evidence: >-
+    FIRS/NRS-compliant e-invoicing — generates Invoice Reference Numbers (IRN)
+    and QR codes and submits invoices to the tax authority via an accredited
+    Access Point Provider connection. Earnipay is described as an accredited NRS
+    and NITDA systems integrator.
+notes: >-
+  Regulatory conformance (Nigeria Revenue Service e-invoicing / NITDA) is a
+  domain standard the platform implements, not a published security-compliance
+  certification program (SOC 2 / ISO 27001 / PCI). No such security
+  certifications were found, so no Compliance pointer is emitted.

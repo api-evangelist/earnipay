@@ -1,0 +1,16 @@
+# Earnipay Documentation
+
+> Documentation for Earnipay
+
+## Guides
+- [Earnipay E-Invoice](https://docs.earnipay.com/docs/e-invoice.md): FIRS-compliant e-invoicing platform API for Nigeria
+- [Authentication](https://docs.earnipay.com/docs/authentication.md): Register, log in, and manage access tokens for the Earnipay e-invoicing API
+- [Users](https://docs.earnipay.com/docs/users.md): Get and update your user profile, change your password, and check completion status
+- [Businesses](https://docs.earnipay.com/docs/businesses.md): Create businesses, configure FIRS settings, upload crypto keys, and manage APP provider connections
+- [Customers](https://docs.earnipay.com/docs/customers-1.md): Create, list, update, and delete customer records for your business
+- [Products](https://docs.earnipay.com/docs/products.md): Create products with tax categories and manage your product catalog for invoicing
+- [Payment Details](https://docs.earnipay.com/docs/payment-details.md): Manage reusable payment methods for your invoices — bank transfer, mobile money, cash, and more. Includes bank lookup and account verification.
+- [Invoices](https://docs.earnipay.com/docs/qr-code-generator.md): Create, approve, and submit FIRS-compliant invoices with IRN generation, QR codes, PDF downloads, and FIRS operations
+- [Team Management](https://docs.earnipay.com/docs/team-management.md): Invite team members, assign roles, and manage access to your business
+
+<!-- provenance: method=searched source=https://docs.earnipay.com/llms.txt generated=2026-07-18 -->

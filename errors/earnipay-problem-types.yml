@@ -1,0 +1,54 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/earnipay-e-invoicing-openapi-original.json
+format: standard-json
+notes: >-
+  Derived from the documented 4xx responses across all operations of the
+  Earnipay Invoicing API. Responses are NOT RFC 9457 problem+json; the spec
+  documents each error only with an HTTP status and a human description, so the
+  exact error-envelope field shape is not declared in-spec. Titles below
+  aggregate the representative per-operation descriptions.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Invalid input data, malformed request, or an invalid/expired code or token.
+  representative_messages:
+  - Invalid or expired verification code
+  - User not found or already verified
+  - Invalid or expired reset token
+  - Bad Request - Invalid input data
+  occurrences: 33
+- status: 401
+  title: Unauthorized
+  meaning: Missing/invalid JWT bearer token, invalid credentials, unverified email, or expired refresh token.
+  representative_messages:
+  - Invalid credentials or email not verified
+  - Invalid or expired refresh token
+  - Unauthorized - Invalid or missing JWT token
+  occurrences: 48
+- status: 403
+  title: Forbidden
+  meaning: Authenticated but lacking permission — no access to the business, insufficient role, or an OWNER-only action.
+  representative_messages:
+  - Forbidden - No access to this business
+  - Forbidden - Insufficient permissions
+  - Forbidden - Only OWNER can delete
+  occurrences: 36
+- status: 404
+  title: Not Found
+  meaning: The referenced resource (user, business, customer, product, invoice, etc.) does not exist.
+  representative_messages:
+  - User not found
+  - Business not found
+  - Customer not found
+  - Product not found
+  occurrences: 38
+- status: 409
+  title: Conflict
+  meaning: A uniqueness constraint was violated — the resource already exists.
+  representative_messages:
+  - User already exists
+  - Conflict - TIN already exists
+  - Conflict - Customer name already exists
+  - Conflict - Product name already exists
+  occurrences: 8

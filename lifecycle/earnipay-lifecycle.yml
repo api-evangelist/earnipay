@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/earnipay-e-invoicing-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.earnipay.com/docs/e-invoice
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No deprecation policy or RFC 8594 Sunset/Deprecation header support is documented.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+notes: >-
+  No public status page, SLA, or deprecation policy was found for the Earnipay
+  Invoicing API as of the enrichment date. No operations are marked deprecated
+  in the OpenAPI. This artifact will upgrade if Earnipay publishes an
+  operational-transparency surface.

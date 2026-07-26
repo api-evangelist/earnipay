@@ -1,0 +1,12 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/earnipay-e-invoicing-openapi-original.json
+skills:
+- file: earnipay-onboard-business.md
+  name: Onboard a business for FIRS e-invoicing
+  api: openapi/earnipay-e-invoicing-openapi-original.json
+  operations: [AuthController_signup_v1, AuthController_verifyEmail_v1, AuthController_login_v1, BusinessController_createBusiness_v1, BusinessController_updateFirsConfig_v1, BusinessController_uploadCryptoKeys_v1, BusinessController_updateAppConfig_v1, BusinessController_testAppConnection_v1]
+- file: earnipay-create-and-submit-invoice.md
+  name: Create and submit a FIRS-compliant invoice
+  api: openapi/earnipay-e-invoicing-openapi-original.json
+  operations: [CustomerController_createCustomer_v1, ProductController_createProduct_v1, PaymentDetailController_create_v1, InvoiceController_validateInvoiceData_v1, InvoiceController_createInvoice_v1, InvoiceController_approveInvoice_v1, IrnGeneratorController_generateIRN_v1, InvoiceController_generateQrCode_v1, InvoiceController_submitToApp_v1, InvoiceController_downloadPdf_v1]

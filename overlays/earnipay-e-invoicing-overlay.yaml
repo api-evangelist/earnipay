@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Earnipay Invoicing API
+  version: 1.0.0
+extends: openapi/earnipay-e-invoicing-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: earnipay
+    x-apievangelist-category: e-invoicing
+    x-apievangelist-country: NG
+    x-apievangelist-standards: [firs-einvoicing, openapi-3.0, jwt-bearer]
+    x-apievangelist-notes: >-
+      FIRS/NRS-compliant e-invoicing API. Auth is JWT bearer for user flows plus
+      an X-API-Key header for third-party integrations. Errors are standard JSON
+      (not RFC 9457). List endpoints paginate with page/limit and filter with
+      search. No documented idempotency-key or rate-limit contract.
+- target: $.servers
+  update:
+  - url: https://e-invoicing.earnipay.com
+    description: Production (all paths served under /v1)

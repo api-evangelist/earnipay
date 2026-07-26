@@ -1,0 +1,58 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/earnipay-e-invoicing-openapi-original.json
+notes: >-
+  Entity-relationship graph derived from the Earnipay Invoicing API OpenAPI —
+  request DTO id-reference fields and the resource path structure. Response
+  entity schemas are not declared in the spec, so relationships are inferred
+  from foreign-key fields (customerId, paymentDetailId) and controller grouping.
+entities:
+- name: User
+  operations: [UserController_getCurrentUser_v1, UserController_updateProfile_v1]
+- name: Business
+  operations: [BusinessController_createBusiness_v1, BusinessController_getBusinessById_v1]
+- name: Customer
+  operations: [CustomerController_createCustomer_v1, CustomerController_getCustomers_v1]
+- name: Product
+  operations: [ProductController_createProduct_v1, ProductController_getProducts_v1]
+- name: PaymentDetail
+  operations: [PaymentDetailController_create_v1, PaymentDetailController_findAll_v1]
+- name: Invoice
+  operations: [InvoiceController_createInvoice_v1, InvoiceController_getInvoices_v1]
+- name: InvoiceItem
+  operations: [InvoiceController_createInvoice_v1]
+- name: TeamMember
+  operations: [TeamController_inviteTeamMember_v1, TeamController_getTeam_v1]
+relationships:
+- from: Business
+  type: has_many
+  to: Customer
+  via: business context
+- from: Business
+  type: has_many
+  to: Product
+  via: business context
+- from: Business
+  type: has_many
+  to: Invoice
+  via: business context
+- from: Business
+  type: has_many
+  to: TeamMember
+  via: team invitation
+- from: Invoice
+  type: belongs_to
+  to: Customer
+  via: customerId
+- from: Invoice
+  type: belongs_to
+  to: PaymentDetail
+  via: paymentDetailId
+- from: Invoice
+  type: has_many
+  to: InvoiceItem
+  via: items
+- from: User
+  type: has_many
+  to: Business
+  via: ownership

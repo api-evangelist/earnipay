@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/earnipay-e-invoicing-openapi-original.json
+docs: https://docs.earnipay.com/docs/e-invoice
+notes: >-
+  Cross-cutting request/response semantics for the Earnipay Invoicing API,
+  derived from the OpenAPI 3.0.0 definition and the developer documentation.
+authentication:
+  styles:
+  - JWT bearer token (Authorization: Bearer <token>) for user-facing flows
+  - Static API key (X-API-Key header) for third-party integrations
+  cross_ref: authentication/earnipay-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key header or idempotent-retry contract is documented in the
+    OpenAPI or docs. Create operations rely on server-side uniqueness
+    constraints (409 Conflict on duplicate TIN / customer name / product name).
+pagination:
+  style: page-number
+  params:
+  - name: page
+    in: query
+  - name: limit
+    in: query
+  filtering:
+  - name: search
+    in: query
+    notes: Free-text search on list endpoints (customers, invoices, products).
+versioning:
+  scheme: uri-path
+  current: v1
+  notes: All endpoints are served under the /v1 path prefix on https://e-invoicing.earnipay.com.
+error_envelope:
+  format: standard-json
+  rfc9457: false
+  status_codes: [400, 401, 403, 404, 409]
+  cross_ref: errors/earnipay-problem-types.yml
+rate_limiting:
+  documented: false
+  notes: No rate-limit headers or quota policy are documented in the spec or docs.
+request_tracing:
+  documented: false
