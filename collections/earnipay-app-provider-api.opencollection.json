@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Earnipay Invoicing App APP Provider API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "APP Provider",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Test APP provider connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/api/v1/businesses/:businessId/app/connection-test",
+            "params": [
+              {
+                "name": "businessId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Test APP provider connection"
+        },
+        {
+          "info": {
+            "name": "Submit invoice to APP provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/api/v1/businesses/:businessId/app/invoices/:invoiceId/submit",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit invoice to APP provider"
+        },
+        {
+          "info": {
+            "name": "Update invoice payment status in FIRS",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/api/v1/businesses/:businessId/app/invoices/:invoiceId/payment-status",
+            "params": [
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update invoice payment status in FIRS"
+        },
+        {
+          "info": {
+            "name": "Search invoices from FIRS system",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/api/v1/businesses/:businessId/app/invoices/search",
+            "params": [
+              {
+                "name": "businessId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search invoices from FIRS system"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,3100 @@
+{
+  "item": [
+    {
+      "id": "5d60ea56-0885-4427-926b-309746dd185b",
+      "name": "Invoices",
+      "description": {
+        "content": "Invoice creation, management, and FIRS validation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74a4482d-9e8b-4b7a-97d8-2c5ab8b59147",
+          "name": "Create new invoice",
+          "request": {
+            "name": "Create new invoice",
+            "description": {
+              "content": "Create a new invoice with line items. IRN is automatically generated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "businessId",
+                  "value": "<string>",
+                  "description": "(Required) Business ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"issueDate\": \"<string>\",\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"unitPrice\": \"<number>\",\n      \"taxPercent\": \"<number>\",\n      \"discount\": 0,\n      \"productCode\": \"<string>\",\n      \"unit\": \"unit\"\n    }\n  ],\n  \"invoiceType\": \"STANDARD\",\n  \"dueDate\": \"<string>\",\n  \"paymentTerms\": \"<string>\",\n  \"paymentMethod\": \"<string>\",\n  \"paymentDetails\": \"<string>\",\n  \"paymentDetailId\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"internalNotes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a638a307-4aab-459a-9fa1-21859f8c1873",
+              "name": "Invoice created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"invoiceType\": \"STANDARD\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"paymentDetailId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order - deliver before Nov 1st\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c83515bf-1f5e-4166-8e1c-317e3fb46d04",
+              "name": "Bad Request - Invalid input or customer not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"invoiceType\": \"STANDARD\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"paymentDetailId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order - deliver before Nov 1st\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "add2d0c6-c708-4889-8167-c59a987d61b0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"invoiceType\": \"STANDARD\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"paymentDetailId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order - deliver before Nov 1st\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86efcc2b-ed93-4853-b202-09ff231be635",
+              "name": "Forbidden - No access to this business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"invoiceType\": \"STANDARD\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"paymentDetailId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order - deliver before Nov 1st\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfa9f452-379a-4fee-a047-779810b7a9aa",
+          "name": "Get invoices list",
+          "request": {
+            "name": "Get invoices list",
+            "description": {
+              "content": "Retrieve paginated list of invoices with search, filter, and sort capabilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "businessId",
+                  "value": "<string>",
+                  "description": "(Required) Business ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search query (searches in IRN, customer name)"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceType",
+                  "value": "<string>",
+                  "description": "Filter by invoice type"
+                },
+                {
+                  "disabled": false,
+                  "key": "customerId",
+                  "value": "<string>",
+                  "description": "Filter by customer ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<string>",
+                  "description": "Filter by issue date (from)"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<string>",
+                  "description": "Filter by issue date (to)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "<string>",
+                  "description": "Sort field"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "Sort order"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76e38aba-ef96-4b54-9008-afb93e5ac805",
+              "name": "Invoices retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "INV001"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "invoiceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "2024-12-31"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e59153bf-9d3f-4f5b-bad3-ac85e3b08aa6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "INV001"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "invoiceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "2024-12-31"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "582f4126-51a5-4b16-8870-d738582656d4",
+              "name": "Forbidden - No access to this business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "search",
+                      "value": "INV001"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "invoiceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "customerId",
+                      "value": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "2024-12-31"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d68fdd15-79b3-4ace-a09f-273269fbac49",
+          "name": "Approve invoice",
+          "request": {
+            "name": "Approve invoice",
+            "description": {
+              "content": "Approve a PENDING_APPROVAL invoice. Only OWNER and ADMIN can approve.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id",
+                "approve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "businessId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comments\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "303220a8-67cc-4dfa-a925-4d13804cb20f",
+              "name": "Invoice approved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"Looks good, approved.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad8b49fd-de32-40c1-93a0-5ebbad710504",
+              "name": "Invoice not in PENDING_APPROVAL status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"Looks good, approved.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "449a34d1-389b-4ddf-8040-5c9647570309",
+              "name": "Forbidden - Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"Looks good, approved.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35db5b03-2495-4832-9c4a-ec4ac61dd973",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"Looks good, approved.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2541aea5-be7c-4f80-9b9c-7373d8ede77a",
+          "name": "Reject invoice",
+          "request": {
+            "name": "Reject invoice",
+            "description": {
+              "content": "Reject a PENDING_APPROVAL invoice. Only OWNER and ADMIN can reject. Invoice returns to DRAFT.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id",
+                "reject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "businessId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"<string>\",\n  \"comments\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95b2e170-afbe-402f-afdb-12844f5a6957",
+              "name": "Invoice rejected successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Incorrect pricing on line item 2\",\n  \"comments\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cddc872a-7fbc-4dd2-89f5-568291ec3832",
+              "name": "Invoice not in PENDING_APPROVAL status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Incorrect pricing on line item 2\",\n  \"comments\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9befaec2-cf31-4b48-b535-511c7c5ebe6a",
+              "name": "Forbidden - Insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Incorrect pricing on line item 2\",\n  \"comments\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0b2a156a-66fd-4fd4-8287-e4e8ce71a022",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "businessId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Incorrect pricing on line item 2\",\n  \"comments\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b39241b-96b0-4b9d-aa98-5a76a1c08284",
+          "name": "Get invoice details",
+          "request": {
+            "name": "Get invoice details",
+            "description": {
+              "content": "Retrieve detailed information about a specific invoice including all line items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a699aa66-2492-407e-8968-453d19cf9975",
+              "name": "Invoice details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9cd201c4-0ee4-48e4-85d5-ab5963bf161e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2304aa72-f857-4060-b505-e75c634dec6b",
+              "name": "Forbidden - No access to this invoice's business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87556696-7ead-4123-b98b-e7eafdcdb4e8",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4be607bc-63d3-472e-9d0c-0d42e2680bbd",
+          "name": "Update invoice",
+          "request": {
+            "name": "Update invoice",
+            "description": {
+              "content": "Update invoice information. Only DRAFT invoices can be updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"issueDate\": \"<string>\",\n  \"dueDate\": \"<string>\",\n  \"items\": [\n    {\n      \"description\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"unitPrice\": \"<number>\",\n      \"taxPercent\": \"<number>\",\n      \"discount\": 0,\n      \"productCode\": \"<string>\",\n      \"unit\": \"unit\"\n    }\n  ],\n  \"paymentTerms\": \"<string>\",\n  \"paymentMethod\": \"<string>\",\n  \"paymentDetails\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"internalNotes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "315366d1-d17d-4469-9036-9aab941ad21e",
+              "name": "Invoice updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cf271e1d-c75c-427e-bd42-387de76b3dbf",
+              "name": "Bad Request - Invalid input or invoice cannot be updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9d6c0189-1846-4fcb-9c14-b9849697a9c4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ad3811b3-3c1c-4014-a053-7a26ae37f0f5",
+              "name": "Forbidden - No access to this invoice's business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eab2229d-f732-4c71-acd9-2c350256516f",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"issueDate\": \"2025-10-25T00:00:00.000Z\",\n  \"dueDate\": \"2025-11-01T00:00:00.000Z\",\n  \"items\": [\n    {\n      \"description\": \"Bags of sugar\",\n      \"quantity\": 10,\n      \"unitPrice\": 30000,\n      \"taxPercent\": 7.5,\n      \"discount\": 0,\n      \"productCode\": \"PROD-001\",\n      \"unit\": \"bags\"\n    }\n  ],\n  \"paymentTerms\": \"Payment due within 7 days\",\n  \"paymentMethod\": \"Bank Transfer\",\n  \"paymentDetails\": \"{\\\"accountName\\\":\\\"John Doe Enterprises\\\",\\\"accountNumber\\\":\\\"09090828929\\\",\\\"bankName\\\":\\\"Access Bank\\\"}\",\n  \"notes\": \"Thank you for your business\",\n  \"internalNotes\": \"Rush order\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c60a4e5a-e730-4533-a143-5b15a0122c91",
+          "name": "Cancel invoice",
+          "request": {
+            "name": "Cancel invoice",
+            "description": {
+              "content": "Cancel an invoice. Cannot cancel submitted or approved invoices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de329046-d902-4695-b4f0-a19515e8b02a",
+              "name": "Invoice cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6e11da5-4aae-4a1a-a384-99d92ba4d27c",
+              "name": "Bad Request - Invoice cannot be cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b09c6a73-1f1e-484d-8cfd-c21bac405bf5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1123ec0-8fbf-4eab-a738-7b4baa9d9f79",
+              "name": "Forbidden - No access to this invoice's business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15acbbbc-b3af-4927-a02f-9e9931620bcc",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52e716ca-19a1-4cf0-94b9-a4463d91625a",
+          "name": "Generate QR code",
+          "request": {
+            "name": "Generate QR code",
+            "description": {
+              "content": "Generate FIRS-compliant QR code for the invoice. Requires business FIRS configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id",
+                "generate-qr"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f87e863-422e-4c52-82df-db73c443121a",
+              "name": "QR code generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "generate-qr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08759d8b-49ee-4b64-812d-846dcba85197",
+              "name": "Bad Request - FIRS crypto keys not configured",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "generate-qr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "afbd2878-862b-44bf-b1be-46c3851faae7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "generate-qr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13e0e97a-f56a-4e8c-9a91-225776d04928",
+              "name": "Forbidden - No access to this invoice's business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "generate-qr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1af9d83c-0334-4f49-9f63-a2e60994620d",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "generate-qr"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4636f26-556e-4e82-86de-43ddbd7a6920",
+          "name": "Download invoice PDF",
+          "request": {
+            "name": "Download invoice PDF",
+            "description": {
+              "content": "Download invoice as PDF file. QR code will be included if generated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id",
+                "pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "71d2dd2a-bcdc-4c40-aa71-0837228324c9",
+              "name": "PDF file downloaded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "attachment; filename=\"invoice-{IRN}.pdf\"",
+                  "key": "Content-Disposition",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c58eece-d2ec-48aa-aa76-e5a04ab21bed",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "346eb5f2-0b8c-434e-b1c8-cc83efede2ca",
+              "name": "Forbidden - No access to this invoice's business",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c5bd3b9-17b4-4e86-a406-95ab720090d3",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21f45683-230c-4787-a441-c901dc8bb8d2",
+          "name": "Submit invoice to APP provider",
+          "request": {
+            "name": "Submit invoice to APP provider",
+            "description": {
+              "content": "Submit an APPROVED invoice to the APP provider (FIRS).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                ":id",
+                "submit-to-app"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Invoice ID"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9d935bc7-ec9e-45b7-9871-c0ebb9e17ffa",
+              "name": "Invoice submitted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "submit-to-app"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b1a8168-5f42-45e1-bd2a-4203216fec05",
+              "name": "Invoice not in APPROVED status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "submit-to-app"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0395080a-8dbc-41d6-ac27-4136c872a2c8",
+              "name": "Invoice not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    ":id",
+                    "submit-to-app"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Invoice ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24eba049-e6a0-40c0-bc02-b4fcbfea198b",
+          "name": "Validate invoice data against FIRS schema",
+          "request": {
+            "name": "Validate invoice data against FIRS schema",
+            "description": {
+              "content": "Validate invoice data structure without creating an invoice.\n\nThis endpoint checks if your invoice data matches the FIRS requirements:\n- Required fields presence\n- IRN format validation\n- Party information completeness (supplier & customer)\n- Line items structure\n- Tax totals validation\n- Legal monetary totals calculations\n\nUse this before submitting invoices to FIRS to catch validation errors early.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "invoices",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"irn\": \"<string>\",\n  \"issue_date\": \"<string>\",\n  \"invoice_type_code\": \"<string>\",\n  \"document_currency_code\": \"<string>\",\n  \"tax_currency_code\": \"<string>\",\n  \"accounting_supplier_party\": \"<object>\",\n  \"accounting_customer_party\": \"<object>\",\n  \"invoice_line\": \"<array>\",\n  \"legal_monetary_total\": \"<object>\",\n  \"tax_total\": \"<array>\",\n  \"due_date\": \"<string>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23e10ed4-3e64-4236-aef9-48043040b003",
+              "name": "Validation completed (check the response for validation results)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"irn\": \"INV0001-94ND90NR-20240611\",\n  \"issue_date\": \"2024-06-11\",\n  \"invoice_type_code\": \"380\",\n  \"document_currency_code\": \"NGN\",\n  \"tax_currency_code\": \"NGN\",\n  \"accounting_supplier_party\": {\n    \"party_name\": \"ABC Company Ltd\",\n    \"tin\": \"12345678-0001\",\n    \"email\": \"contact@abc.com\",\n    \"telephone\": \"+2348012345678\",\n    \"postal_address\": {\n      \"street_name\": \"123 Main Street\",\n      \"city_name\": \"Lagos\",\n      \"country\": \"NG\"\n    }\n  },\n  \"accounting_customer_party\": {\n    \"party_name\": \"XYZ Company Ltd\",\n    \"tin\": \"87654321-0001\",\n    \"email\": \"contact@xyz.com\",\n    \"telephone\": \"+2348087654321\",\n    \"postal_address\": {\n      \"street_name\": \"456 Second Avenue\",\n      \"city_name\": \"Abuja\",\n      \"country\": \"NG\"\n    }\n  },\n  \"invoice_line\": [\n    {\n      \"invoiced_quantity\": 10,\n      \"line_extension_amount\": 10000,\n      \"item\": {\n        \"name\": \"Product ABC\",\n        \"description\": \"Product description\"\n      },\n      \"price\": {\n        \"price_amount\": 1000,\n        \"base_quantity\": 1\n      }\n    }\n  ],\n  \"legal_monetary_total\": {\n    \"line_extension_amount\": 10000,\n    \"tax_exclusive_amount\": 10000,\n    \"tax_inclusive_amount\": 10750,\n    \"payable_amount\": 10750\n  },\n  \"tax_total\": [\n    {\n      \"tax_amount\": 750,\n      \"tax_subtotal\": [\n        {\n          \"taxable_amount\": 10000,\n          \"tax_amount\": 750,\n          \"tax_category\": {\n            \"percent\": 7.5\n          }\n        }\n      ]\n    }\n  ],\n  \"due_date\": \"2024-07-11\",\n  \"note\": \"Payment terms: Net 30\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"valid\": true,\n  \"errors\": [],\n  \"warnings\": [\n    \"TIN format should follow XX-XXXX-XXXX pattern\"\n  ],\n  \"details\": {\n    \"hasRequiredFields\": true,\n    \"hasValidIRN\": true,\n    \"hasValidParties\": true,\n    \"hasValidLineItems\": true,\n    \"hasValidTotals\": true,\n    \"hasValidTaxTotal\": true\n  },\n  \"summary\": {\n    \"totalLineItems\": 1,\n    \"totalAmount\": 10750,\n    \"currencyCode\": \"NGN\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff4ff04a-c6d9-4462-a6dd-2c495a5b94bb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "invoices",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"irn\": \"INV0001-94ND90NR-20240611\",\n  \"issue_date\": \"2024-06-11\",\n  \"invoice_type_code\": \"380\",\n  \"document_currency_code\": \"NGN\",\n  \"tax_currency_code\": \"NGN\",\n  \"accounting_supplier_party\": {\n    \"party_name\": \"ABC Company Ltd\",\n    \"tin\": \"12345678-0001\",\n    \"email\": \"contact@abc.com\",\n    \"telephone\": \"+2348012345678\",\n    \"postal_address\": {\n      \"street_name\": \"123 Main Street\",\n      \"city_name\": \"Lagos\",\n      \"country\": \"NG\"\n    }\n  },\n  \"accounting_customer_party\": {\n    \"party_name\": \"XYZ Company Ltd\",\n    \"tin\": \"87654321-0001\",\n    \"email\": \"contact@xyz.com\",\n    \"telephone\": \"+2348087654321\",\n    \"postal_address\": {\n      \"street_name\": \"456 Second Avenue\",\n      \"city_name\": \"Abuja\",\n      \"country\": \"NG\"\n    }\n  },\n  \"invoice_line\": [\n    {\n      \"invoiced_quantity\": 10,\n      \"line_extension_amount\": 10000,\n      \"item\": {\n        \"name\": \"Product ABC\",\n        \"description\": \"Product description\"\n      },\n      \"price\": {\n        \"price_amount\": 1000,\n        \"base_quantity\": 1\n      }\n    }\n  ],\n  \"legal_monetary_total\": {\n    \"line_extension_amount\": 10000,\n    \"tax_exclusive_amount\": 10000,\n    \"tax_inclusive_amount\": 10750,\n    \"payable_amount\": 10750\n  },\n  \"tax_total\": [\n    {\n      \"tax_amount\": 750,\n      \"tax_subtotal\": [\n        {\n          \"taxable_amount\": 10000,\n          \"tax_amount\": 750,\n          \"tax_category\": {\n            \"percent\": 7.5\n          }\n        }\n      ]\n    }\n  ],\n  \"due_date\": \"2024-07-11\",\n  \"note\": \"Payment terms: Net 30\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "29aeaf6d-120f-4165-9306-18eb50b51a80",
+    "name": "Earnipay Invoicing App Invoices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "FIRS-compliant e-invoicing platform API",
+      "type": "text/plain"
+    }
+  }
+}

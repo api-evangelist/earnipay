@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Earnipay Invoicing App Bank API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of banks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/banks/list",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a list of all supported banks from a provider."
+        },
+        {
+          "info": {
+            "name": "Verify bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/banks/verify-account",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Verify the details of a bank account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

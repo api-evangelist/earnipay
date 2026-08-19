@@ -1,0 +1,356 @@
+{
+  "item": [
+    {
+      "id": "4b51c462-d646-4254-8710-8ad6e1e8ac80",
+      "name": "QR Code Generator",
+      "description": {
+        "content": "Generate FIRS-compliant encrypted QR codes for invoices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68e41677-5065-4297-8ee7-217a26243a96",
+          "name": "Generate FIRS-compliant QR Code",
+          "request": {
+            "name": "Generate FIRS-compliant QR Code",
+            "description": {
+              "content": "Generate a QR code for an invoice by encrypting the IRN with the business's cryptographic keys.\n\n**Process:**\n1. Upload crypto_keys.txt file (downloaded from FIRS dashboard)\n2. Provide IRN (Invoice Reference Number)\n3. System appends Unix timestamp to IRN\n4. System encrypts payload with RSA public key from uploaded file\n5. System generates QR code from encrypted data\n6. Returns QR code as Base64 and Data URL\n\n**FIRS Requirements:**\n- Error correction level H (30% recovery)\n- Minimum 300x300 pixels\n- Contains encrypted IRN with timestamp and certificate hash\n\n**File Format:**\nThe crypto_keys.txt file should contain JSON with public_key and certificate (both base64 encoded):\n```json\n{\n  \"public_key\": \"LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0K...\",\n  \"certificate\": \"bEF0V3FJbmo5cVZYbEdCblB4QVpjMG9HVWFrc29GM2hiYWFkYWMyODRBUT0=\"\n}\n```",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "qr-generator",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "irn",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Invoice Reference Number (IRN)"
+                },
+                {
+                  "key": "cryptoKeysFile",
+                  "type": "file",
+                  "description": "(Required) Crypto keys file (crypto_keys.txt downloaded from FIRS)"
+                },
+                {
+                  "key": "errorCorrectionLevel",
+                  "value": "H",
+                  "type": "text",
+                  "description": "QR code error correction level (H = High 30% recovery, recommended) (This can only be one of L,M,Q,H)"
+                },
+                {
+                  "key": "width",
+                  "value": "300",
+                  "type": "text",
+                  "description": "QR code width in pixels (FIRS requires minimum 300x300)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "64953a87-89f2-4e8b-8195-3602694feaf2",
+              "name": "QR code generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "qr-generator",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Invoice Reference Number (IRN)",
+                        "type": "text/plain"
+                      },
+                      "key": "irn",
+                      "value": "INV0001-94ND90NR-20240611",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Crypto keys file (crypto_keys.txt downloaded from FIRS)",
+                        "type": "text/plain"
+                      },
+                      "key": "cryptoKeysFile",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "QR code error correction level (H = High 30% recovery, recommended) (This can only be one of L,M,Q,H)",
+                        "type": "text/plain"
+                      },
+                      "key": "errorCorrectionLevel",
+                      "value": "H",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "QR code width in pixels (FIRS requires minimum 300x300)",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "300",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"base64\": \"iVBORw0KGgoAAAANSUhEUgAA...\",\n  \"dataURL\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...\",\n  \"size\": 12345,\n  \"irn\": \"INV0001-94ND90NR-20240611\",\n  \"encryptedData\": \"aLI+LP+gVeA4dTMTYAdemTMOnIY67d0AB1pmH2QXXN2k...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcbab11b-1d33-435e-9f6d-4e397dde7573",
+              "name": "Bad Request - Invalid IRN, crypto keys file, or encryption failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "qr-generator",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Invoice Reference Number (IRN)",
+                        "type": "text/plain"
+                      },
+                      "key": "irn",
+                      "value": "INV0001-94ND90NR-20240611",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Crypto keys file (crypto_keys.txt downloaded from FIRS)",
+                        "type": "text/plain"
+                      },
+                      "key": "cryptoKeysFile",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "QR code error correction level (H = High 30% recovery, recommended) (This can only be one of L,M,Q,H)",
+                        "type": "text/plain"
+                      },
+                      "key": "errorCorrectionLevel",
+                      "value": "H",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "QR code width in pixels (FIRS requires minimum 300x300)",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "300",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d45501ac-9853-4c92-b373-56c4597ecb52",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "qr-generator",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Invoice Reference Number (IRN)",
+                        "type": "text/plain"
+                      },
+                      "key": "irn",
+                      "value": "INV0001-94ND90NR-20240611",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Crypto keys file (crypto_keys.txt downloaded from FIRS)",
+                        "type": "text/plain"
+                      },
+                      "key": "cryptoKeysFile",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "QR code error correction level (H = High 30% recovery, recommended) (This can only be one of L,M,Q,H)",
+                        "type": "text/plain"
+                      },
+                      "key": "errorCorrectionLevel",
+                      "value": "H",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "QR code width in pixels (FIRS requires minimum 300x300)",
+                        "type": "text/plain"
+                      },
+                      "key": "width",
+                      "value": "300",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2768a1bb-61f5-4951-a0cd-9adaefea039f",
+    "name": "Earnipay Invoicing App QR Code Generator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "FIRS-compliant e-invoicing platform API",
+      "type": "text/plain"
+    }
+  }
+}

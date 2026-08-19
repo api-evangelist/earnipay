@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Earnipay Invoicing App QR Code Generator API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "QR Code Generator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate FIRS-compliant QR Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/qr-generator/generate",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "irn",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "cryptoKeysFile",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "errorCorrectionLevel",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "width",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a QR code for an invoice by encrypting the IRN with the business's cryptographic keys.\n\n**Process:**\n1. Upload crypto_keys.txt file (downloaded from FIRS dashboard)\n2. Provide IRN (Invoice Reference Number)\n3. System appends Unix timestamp to IRN\n4. System encrypts payload with RSA public key from uploaded file\n5. System generates QR code from encrypted data\n6. Returns QR code as Base64 and Data URL\n\n**FIRS Requirements:**\n- Error correction level H (30% recovery)\n- Minimum 300x300 pixe"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

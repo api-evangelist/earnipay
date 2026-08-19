@@ -1,0 +1,241 @@
+{
+  "item": [
+    {
+      "id": "d66f8058-aaca-444e-a765-1017549af6e2",
+      "name": "IRN Generator",
+      "description": {
+        "content": "Generate FIRS-compliant Invoice Reference Numbers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "97dfda53-9345-4808-9fb4-7f8865b7bd2a",
+          "name": "Generate Invoice Reference Number (IRN)",
+          "request": {
+            "name": "Generate Invoice Reference Number (IRN)",
+            "description": {
+              "content": "Generate a FIRS-compliant IRN from invoice number, service ID, and issue date. Format: {InvoiceNumber}-{ServiceID}-{YYYYMMDD}",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "irn-generator",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoiceNumber\": \"<string>\",\n  \"serviceId\": \"<string>\",\n  \"issueDate\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70199aaf-42e2-4037-afb9-bcf42e692131",
+              "name": "IRN generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "irn-generator",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"INV0001\",\n  \"serviceId\": \"94ND90NR\",\n  \"issueDate\": \"2024-06-11T00:00:00.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"irn\": \"INV0001-94ND90NR-20240611\",\n  \"components\": {\n    \"invoiceNumber\": \"INV0001\",\n    \"serviceId\": \"94ND90NR\",\n    \"datestamp\": \"20240611\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4249533-c4cc-4cb1-86ff-153f489b8c06",
+              "name": "Bad Request - Invalid invoice number or service ID format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "irn-generator",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"INV0001\",\n  \"serviceId\": \"94ND90NR\",\n  \"issueDate\": \"2024-06-11T00:00:00.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3dfeeaf2-adf1-4ca5-8a63-90fa2a3ababa",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "irn-generator",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceNumber\": \"INV0001\",\n  \"serviceId\": \"94ND90NR\",\n  \"issueDate\": \"2024-06-11T00:00:00.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7a8bb636-ef05-424a-b07a-3aa36c804300",
+    "name": "Earnipay Invoicing App IRN Generator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "FIRS-compliant e-invoicing platform API",
+      "type": "text/plain"
+    }
+  }
+}

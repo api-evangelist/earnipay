@@ -2,219 +2,226 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/earnipay-e-invoicing-openapi-original.json
-notes: >-
-  No official hosted/remote MCP server was found for Earnipay. This is a
-  CANDIDATE tool list mechanically derived one-per-operation from the
-  Earnipay Invoicing OpenAPI, as a starting point for an MCP server.
+notes: No official hosted/remote MCP server was found for Earnipay. This is a CANDIDATE tool list mechanically
+  derived one-per-operation from the Earnipay Invoicing OpenAPI, as a starting point for an MCP server.
 server:
   name: earnipay-invoicing
   transport: http
   url: null
 tools:
 - name: AppController_getHello_v1
-  description: "GET /v1 — GET /v1"
+  description: GET /v1 — GET /v1
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AppController_getHello_v1
 - name: AuthController_signup_v1
-  description: "POST /v1/auth/signup — Register new user account"
+  description: POST /v1/auth/signup — Register new user account
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_signup_v1
 - name: AuthController_verifyEmail_v1
-  description: "POST /v1/auth/verify-email — Verify email with code"
+  description: POST /v1/auth/verify-email — Verify email with code
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_verifyEmail_v1
 - name: AuthController_resendVerificationCode_v1
-  description: "POST /v1/auth/resend-code — Resend verification code"
+  description: POST /v1/auth/resend-code — Resend verification code
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_resendVerificationCode_v1
 - name: AuthController_login_v1
-  description: "POST /v1/auth/login — Login with email and password"
+  description: POST /v1/auth/login — Login with email and password
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_login_v1
 - name: AuthController_refreshToken_v1
-  description: "POST /v1/auth/refresh — Refresh access token"
+  description: POST /v1/auth/refresh — Refresh access token
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_refreshToken_v1
 - name: AuthController_logout_v1
-  description: "POST /v1/auth/logout — Logout user (invalidate refresh token)"
+  description: POST /v1/auth/logout — Logout user (invalidate refresh token)
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_logout_v1
 - name: AuthController_forgotPassword_v1
-  description: "POST /v1/auth/forgot-password — Request password reset link"
+  description: POST /v1/auth/forgot-password — Request password reset link
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_forgotPassword_v1
 - name: AuthController_resetPassword_v1
-  description: "POST /v1/auth/reset-password — Reset password with token"
+  description: POST /v1/auth/reset-password — Reset password with token
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AuthController_resetPassword_v1
 - name: UserController_getCurrentUser_v1
-  description: "GET /v1/users/me — Get current user profile"
+  description: GET /v1/users/me — Get current user profile
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#UserController_getCurrentUser_v1
 - name: UserController_updateProfile_v1
-  description: "PATCH /v1/users/me — Update user profile"
+  description: PATCH /v1/users/me — Update user profile
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#UserController_updateProfile_v1
 - name: UserController_changePassword_v1
-  description: "POST /v1/users/change-password — Change user password"
+  description: POST /v1/users/change-password — Change user password
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#UserController_changePassword_v1
 - name: UserController_getProfileCompletion_v1
-  description: "GET /v1/users/me/completion — Get profile completion status"
+  description: GET /v1/users/me/completion — Get profile completion status
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#UserController_getProfileCompletion_v1
 - name: BusinessController_uploadFile_v1
-  description: "POST /v1/businesses/upload — Upload a file"
+  description: POST /v1/businesses/upload — Upload a file
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_uploadFile_v1
 - name: BusinessController_createBusiness_v1
-  description: "POST /v1/businesses — Create new business"
+  description: POST /v1/businesses — Create new business
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_createBusiness_v1
 - name: BusinessController_getUserBusinesses_v1
-  description: "GET /v1/businesses — Get user's businesses"
+  description: GET /v1/businesses — Get user's businesses
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_getUserBusinesses_v1
 - name: BusinessController_getBusinessById_v1
-  description: "GET /v1/businesses/{id} — Get business details"
+  description: GET /v1/businesses/{id} — Get business details
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_getBusinessById_v1
 - name: BusinessController_updateBusiness_v1
-  description: "PATCH /v1/businesses/{id} — Update business"
+  description: PATCH /v1/businesses/{id} — Update business
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_updateBusiness_v1
 - name: BusinessController_deleteBusiness_v1
-  description: "DELETE /v1/businesses/{id} — Delete business"
+  description: DELETE /v1/businesses/{id} — Delete business
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_deleteBusiness_v1
 - name: BusinessController_updateBusinessSettings_v1
-  description: "PATCH /v1/businesses/{id}/settings — Update business settings"
+  description: PATCH /v1/businesses/{id}/settings — Update business settings
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_updateBusinessSettings_v1
 - name: BusinessController_updateFirsConfig_v1
-  description: "PATCH /v1/businesses/{id}/firs-config — Update FIRS configuration"
+  description: PATCH /v1/businesses/{id}/firs-config — Update FIRS configuration
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_updateFirsConfig_v1
 - name: BusinessController_uploadCryptoKeys_v1
-  description: "PATCH /v1/businesses/{id}/crypto-keys — Upload crypto keys file"
+  description: PATCH /v1/businesses/{id}/crypto-keys — Upload crypto keys file
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_uploadCryptoKeys_v1
 - name: BusinessController_updateAppConfig_v1
-  description: "PATCH /v1/businesses/{id}/app-config — Update APP configuration"
+  description: PATCH /v1/businesses/{id}/app-config — Update APP configuration
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_updateAppConfig_v1
 - name: BusinessController_testAppConnection_v1
-  description: "POST /v1/businesses/{id}/test-app-connection — Test APP connection"
+  description: POST /v1/businesses/{id}/test-app-connection — Test APP connection
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_testAppConnection_v1
 - name: BusinessController_setDefaultBusiness_v1
-  description: "POST /v1/businesses/{id}/set-default — Set business as default"
+  description: POST /v1/businesses/{id}/set-default — Set business as default
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_setDefaultBusiness_v1
 - name: BusinessController_updateAppProvider_v1
-  description: "PATCH /v1/businesses/{id}/app-provider — Update APP provider"
+  description: PATCH /v1/businesses/{id}/app-provider — Update APP provider
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_updateAppProvider_v1
 - name: BusinessController_updateInterswitchCredentials_v1
-  description: "PATCH /v1/businesses/{id}/interswitch-credentials — Update Interswitch credentials"
+  description: PATCH /v1/businesses/{id}/interswitch-credentials — Update Interswitch credentials
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_updateInterswitchCredentials_v1
 - name: BusinessController_testInterswitchConnection_v1
-  description: "POST /v1/businesses/{id}/test-interswitch-connection — Test Interswitch connection"
+  description: POST /v1/businesses/{id}/test-interswitch-connection — Test Interswitch connection
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_testInterswitchConnection_v1
 - name: BusinessController_getSupportedProviders_v1
-  description: "GET /v1/businesses/providers/supported — Get supported APP providers"
+  description: GET /v1/businesses/providers/supported — Get supported APP providers
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BusinessController_getSupportedProviders_v1
 - name: AppProviderController_testConnection_v1
-  description: "GET /v1/api/v1/businesses/{businessId}/app/connection-test — Test APP provider connection"
+  description: GET /v1/api/v1/businesses/{businessId}/app/connection-test — Test APP provider connection
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AppProviderController_testConnection_v1
 - name: AppProviderController_submitInvoice_v1
-  description: "POST /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/submit — Submit invoice to APP provider"
+  description: POST /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/submit — Submit invoice
+    to APP provider
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AppProviderController_submitInvoice_v1
 - name: AppProviderController_updatePaymentStatus_v1
-  description: "PATCH /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/payment-status — Update invoice payment status in FIRS"
+  description: PATCH /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/payment-status — Update
+    invoice payment status in FIRS
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AppProviderController_updatePaymentStatus_v1
 - name: AppProviderController_searchInvoices_v1
-  description: "GET /v1/api/v1/businesses/{businessId}/app/invoices/search — Search invoices from FIRS system"
+  description: GET /v1/api/v1/businesses/{businessId}/app/invoices/search — Search invoices from FIRS
+    system
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#AppProviderController_searchInvoices_v1
 - name: CustomerController_createCustomer_v1
-  description: "POST /v1/customers — Create new customer"
+  description: POST /v1/customers — Create new customer
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#CustomerController_createCustomer_v1
 - name: CustomerController_getCustomers_v1
-  description: "GET /v1/customers — Get customers list"
+  description: GET /v1/customers — Get customers list
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#CustomerController_getCustomers_v1
 - name: CustomerController_getCustomerById_v1
-  description: "GET /v1/customers/{id} — Get customer details"
+  description: GET /v1/customers/{id} — Get customer details
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#CustomerController_getCustomerById_v1
 - name: CustomerController_updateCustomer_v1
-  description: "PATCH /v1/customers/{id} — Update customer"
+  description: PATCH /v1/customers/{id} — Update customer
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#CustomerController_updateCustomer_v1
 - name: CustomerController_deleteCustomer_v1
-  description: "DELETE /v1/customers/{id} — Delete customer"
+  description: DELETE /v1/customers/{id} — Delete customer
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#CustomerController_deleteCustomer_v1
 - name: ProductController_createProduct_v1
-  description: "POST /v1/products — Create new product"
+  description: POST /v1/products — Create new product
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#ProductController_createProduct_v1
 - name: ProductController_getProducts_v1
-  description: "GET /v1/products — Get products list"
+  description: GET /v1/products — Get products list
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#ProductController_getProducts_v1
 - name: ProductController_getProductById_v1
-  description: "GET /v1/products/{id} — Get product details"
+  description: GET /v1/products/{id} — Get product details
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#ProductController_getProductById_v1
 - name: ProductController_updateProduct_v1
-  description: "PATCH /v1/products/{id} — Update product"
+  description: PATCH /v1/products/{id} — Update product
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#ProductController_updateProduct_v1
 - name: ProductController_deleteProduct_v1
-  description: "DELETE /v1/products/{id} — Delete product"
+  description: DELETE /v1/products/{id} — Delete product
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#ProductController_deleteProduct_v1
 - name: InvoiceController_createInvoice_v1
-  description: "POST /v1/invoices — Create new invoice"
+  description: POST /v1/invoices — Create new invoice
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_createInvoice_v1
 - name: InvoiceController_getInvoices_v1
-  description: "GET /v1/invoices — Get invoices list"
+  description: GET /v1/invoices — Get invoices list
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_getInvoices_v1
 - name: InvoiceController_approveInvoice_v1
-  description: "POST /v1/invoices/{id}/approve — Approve invoice"
+  description: POST /v1/invoices/{id}/approve — Approve invoice
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_approveInvoice_v1
 - name: InvoiceController_rejectInvoice_v1
-  description: "POST /v1/invoices/{id}/reject — Reject invoice"
+  description: POST /v1/invoices/{id}/reject — Reject invoice
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_rejectInvoice_v1
 - name: InvoiceController_getInvoiceById_v1
-  description: "GET /v1/invoices/{id} — Get invoice details"
+  description: GET /v1/invoices/{id} — Get invoice details
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_getInvoiceById_v1
 - name: InvoiceController_updateInvoice_v1
-  description: "PATCH /v1/invoices/{id} — Update invoice"
+  description: PATCH /v1/invoices/{id} — Update invoice
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_updateInvoice_v1
 - name: InvoiceController_cancelInvoice_v1
-  description: "DELETE /v1/invoices/{id} — Cancel invoice"
+  description: DELETE /v1/invoices/{id} — Cancel invoice
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_cancelInvoice_v1
 - name: InvoiceController_generateQrCode_v1
-  description: "POST /v1/invoices/{id}/generate-qr — Generate QR code"
+  description: POST /v1/invoices/{id}/generate-qr — Generate QR code
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_generateQrCode_v1
 - name: InvoiceController_downloadPdf_v1
-  description: "GET /v1/invoices/{id}/pdf — Download invoice PDF"
+  description: GET /v1/invoices/{id}/pdf — Download invoice PDF
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_downloadPdf_v1
 - name: InvoiceController_submitToApp_v1
-  description: "POST /v1/invoices/{id}/submit-to-app — Submit invoice to APP provider"
+  description: POST /v1/invoices/{id}/submit-to-app — Submit invoice to APP provider
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_submitToApp_v1
 - name: InvoiceController_validateInvoiceData_v1
-  description: "POST /v1/invoices/validate — Validate invoice data against FIRS schema"
+  description: POST /v1/invoices/validate — Validate invoice data against FIRS schema
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#InvoiceController_validateInvoiceData_v1
 - name: IrnGeneratorController_generateIRN_v1
-  description: "POST /v1/irn-generator/generate — Generate Invoice Reference Number (IRN)"
+  description: POST /v1/irn-generator/generate — Generate Invoice Reference Number (IRN)
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#IrnGeneratorController_generateIRN_v1
 - name: QrGeneratorController_generateQRCode_v1
-  description: "POST /v1/qr-generator/generate — Generate FIRS-compliant QR Code"
+  description: POST /v1/qr-generator/generate — Generate FIRS-compliant QR Code
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#QrGeneratorController_generateQRCode_v1
 - name: PaymentDetailController_create_v1
-  description: "POST /v1/payment-details — Create payment detail"
+  description: POST /v1/payment-details — Create payment detail
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#PaymentDetailController_create_v1
 - name: PaymentDetailController_findAll_v1
-  description: "GET /v1/payment-details — List payment details"
+  description: GET /v1/payment-details — List payment details
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#PaymentDetailController_findAll_v1
 - name: PaymentDetailController_findOne_v1
-  description: "GET /v1/payment-details/{id} — Get payment detail"
+  description: GET /v1/payment-details/{id} — Get payment detail
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#PaymentDetailController_findOne_v1
 - name: PaymentDetailController_update_v1
-  description: "PATCH /v1/payment-details/{id} — Update payment detail"
+  description: PATCH /v1/payment-details/{id} — Update payment detail
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#PaymentDetailController_update_v1
 - name: PaymentDetailController_remove_v1
-  description: "DELETE /v1/payment-details/{id} — Delete payment detail"
+  description: DELETE /v1/payment-details/{id} — Delete payment detail
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#PaymentDetailController_remove_v1
 - name: TeamController_inviteTeamMember_v1
-  description: "POST /v1/team/invite — Invite team member"
+  description: POST /v1/team/invite — Invite team member
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#TeamController_inviteTeamMember_v1
 - name: TeamController_getTeam_v1
-  description: "GET /v1/team — Get team members"
+  description: GET /v1/team — Get team members
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#TeamController_getTeam_v1
 - name: TeamController_acceptInvitation_v1
-  description: "POST /v1/team/invitations/{token}/accept — Accept team invitation"
+  description: POST /v1/team/invitations/{token}/accept — Accept team invitation
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#TeamController_acceptInvitation_v1
 - name: TeamController_revokeInvitation_v1
-  description: "DELETE /v1/team/invitations/{id} — Revoke team invitation"
+  description: DELETE /v1/team/invitations/{id} — Revoke team invitation
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#TeamController_revokeInvitation_v1
 - name: TeamController_updateMemberRole_v1
-  description: "PATCH /v1/team/members/{id}/role — Update team member role"
+  description: PATCH /v1/team/members/{id}/role — Update team member role
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#TeamController_updateMemberRole_v1
 - name: TeamController_removeMember_v1
-  description: "DELETE /v1/team/members/{id} — Remove team member"
+  description: DELETE /v1/team/members/{id} — Remove team member
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#TeamController_removeMember_v1
 - name: BankController_getBankList_v1
-  description: "GET /v1/banks/list — Get list of banks"
+  description: GET /v1/banks/list — Get list of banks
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BankController_getBankList_v1
 - name: BankController_verifyBankAccount_v1
-  description: "POST /v1/banks/verify-account — Verify bank account"
+  description: POST /v1/banks/verify-account — Verify bank account
   source_operation: openapi/earnipay-e-invoicing-openapi-original.json#BankController_verifyBankAccount_v1
+deployment:
+  mode: none
+  verified: derived
+  tools: 69
+  checked: '2026-08-12'
+  source: catalog MCP census

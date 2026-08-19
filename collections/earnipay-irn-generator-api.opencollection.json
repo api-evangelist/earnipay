@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Earnipay Invoicing App IRN Generator API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "IRN Generator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Invoice Reference Number (IRN)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/irn-generator/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a FIRS-compliant IRN from invoice number, service ID, and issue date. Format: {InvoiceNumber}-{ServiceID}-{YYYYMMDD}"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
