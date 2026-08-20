@@ -47,6 +47,18 @@ tags:
 - Fintech
 - Nigeria
 - Payments
+- Financial-Services
+tags_raw:
+- Company
+- E-Invoicing
+- Invoicing
+- FIRS
+- NRS
+- Tax
+- Compliance
+- Fintech
+- Nigeria
+- Payments
 - Financial Services
 apis:
 - aid: earnipay:earnipay-app-api
@@ -181,6 +193,8 @@ apis:
   humanURL: https://docs.earnipay.com/docs/e-invoice
   baseURL: https://e-invoicing.earnipay.com/v1
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -223,6 +237,8 @@ apis:
   humanURL: https://docs.earnipay.com/docs/e-invoice
   baseURL: https://e-invoicing.earnipay.com/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
