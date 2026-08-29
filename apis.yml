@@ -259,6 +259,9 @@ apis:
   - type: APIReference
     url: https://e-invoicing.earnipay.com/api/docs
 common:
+- type: CapabilityMap
+  url: capabilities/earnipay-capability-edges.yml
+  name: Earnipay Business Capability Map
 - type: AgenticAccess
   url: agentic-access/earnipay-agentic-access.yml
 - type: DomainSecurity

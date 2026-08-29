@@ -1,0 +1,38 @@
+slug: earnipay
+provider: Earnipay
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: APP Provider
+  spec_file: earnipay-app-provider-api-openapi.yml
+  capability_id: BC-220.40
+  capability_id_l1: BC-220
+  capability_name: Tax Reporting & Compliance
+  confidence: 0.75
+  evidence: POST /v1/api/v1/businesses/{businessId}/app/invoices/{invoiceId}/submit 'Submit invoice to
+    APP provider'; PATCH .../payment-status 'Update invoice payment status in FIRS'; GET .../invoices/search
+    'Search invoices from FIRS system'
+  reason: Operations transmit invoices and payment status to the Nigerian tax authority (FIRS) via an
+    accredited access-point provider — statutory e-invoicing/tax submission and compliance rather than
+    internal billing.
+- tag: Invoices
+  spec_file: earnipay-invoices-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.7
+  evidence: POST /v1/invoices Create new invoice; GET /v1/invoices/{id}/pdf Download invoice PDF; POST
+    /v1/invoices/validate Validate invoice data against FIRS schema
+  reason: Operations create, approve, cancel, render and submit customer invoices — outbound customer
+    invoicing, i.e. accounts receivable invoicing with a tax-clearance step. Not a banking payment capability;
+    the tax-submission aspect is secondary to the invoice lifecycle itself.
