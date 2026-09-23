@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Earnipay Invoicing App Authentication API
+  title: Earnipay Invoicing Authentication API
   description: FIRS-compliant e-invoicing platform API
   version: '1.0'
   contact: {}
@@ -165,49 +165,6 @@ components:
       required:
       - email
       - password
-    ForgotPasswordDto:
-      type: object
-      properties:
-        email:
-          type: string
-          example: john.doe@example.com
-          description: User email address
-      required:
-      - email
-    ResendCodeDto:
-      type: object
-      properties:
-        email:
-          type: string
-          example: john.doe@example.com
-          description: User email address
-      required:
-      - email
-    RefreshTokenDto:
-      type: object
-      properties:
-        refreshToken:
-          type: string
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-          description: Refresh token
-      required:
-      - refreshToken
-    VerifyEmailDto:
-      type: object
-      properties:
-        email:
-          type: string
-          example: john.doe@example.com
-          description: User email address
-        code:
-          type: string
-          example: '123456'
-          description: 6-digit verification code
-          minLength: 6
-          maxLength: 6
-      required:
-      - email
-      - code
     ResetPasswordDto:
       type: object
       properties:
@@ -246,6 +203,49 @@ components:
       required:
       - email
       - password
+    ResendCodeDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+      required:
+      - email
+    ForgotPasswordDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+      required:
+      - email
+    RefreshTokenDto:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          description: Refresh token
+      required:
+      - refreshToken
+    VerifyEmailDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+        code:
+          type: string
+          example: '123456'
+          description: 6-digit verification code
+          minLength: 6
+          maxLength: 6
+      required:
+      - email
+      - code
   securitySchemes:
     JWT-auth:
       scheme: bearer

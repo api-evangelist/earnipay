@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Earnipay Invoicing App QR Code Generator API
+  title: Earnipay Invoicing QR Code Generator API
   description: FIRS-compliant e-invoicing platform API
   version: '1.0'
   contact: {}
@@ -11,7 +11,48 @@ tags:
 paths:
   /v1/qr-generator/generate:
     post:
-      description: "Generate a QR code for an invoice by encrypting the IRN with the business's cryptographic keys.\n\n**Process:**\n1. Upload crypto_keys.txt file (downloaded from FIRS dashboard)\n2. Provide IRN (Invoice Reference Number)\n3. System appends Unix timestamp to IRN\n4. System encrypts payload with RSA public key from uploaded file\n5. System generates QR code from encrypted data\n6. Returns QR code as Base64 and Data URL\n\n**FIRS Requirements:**\n- Error correction level H (30% recovery)\n- Minimum 300x300 pixels\n- Contains encrypted IRN with timestamp and certificate hash\n\n**File Format:**\nThe crypto_keys.txt file should contain JSON with public_key and certificate (both base64 encoded):\n```json\n{\n  \"public_key\": \"LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0K...\",\n  \"certificate\": \"bEF0V3FJbmo5cVZYbEdCblB4QVpjMG9HVWFrc29GM2hiYWFkYWMyODRBUT0=\"\n}\n```"
+      description: 'Generate a QR code for an invoice by encrypting the IRN with the business''s cryptographic keys.
+
+
+        **Process:**
+
+        1. Upload crypto_keys.txt file (downloaded from FIRS dashboard)
+
+        2. Provide IRN (Invoice Reference Number)
+
+        3. System appends Unix timestamp to IRN
+
+        4. System encrypts payload with RSA public key from uploaded file
+
+        5. System generates QR code from encrypted data
+
+        6. Returns QR code as Base64 and Data URL
+
+
+        **FIRS Requirements:**
+
+        - Error correction level H (30% recovery)
+
+        - Minimum 300x300 pixels
+
+        - Contains encrypted IRN with timestamp and certificate hash
+
+
+        **File Format:**
+
+        The crypto_keys.txt file should contain JSON with public_key and certificate (both base64 encoded):
+
+        ```json
+
+        {
+
+        "public_key": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0K...",
+
+        "certificate": "bEF0V3FJbmo5cVZYbEdCblB4QVpjMG9HVWFrc29GM2hiYWFkYWMyODRBUT0="
+
+        }
+
+        ```'
       operationId: QrGeneratorController_generateQRCode_v1
       parameters: []
       requestBody:

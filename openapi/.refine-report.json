@@ -1,29 +1,17 @@
 {
   "provider": "earnipay",
   "sources": [
-    "earnipay-app-api-openapi.yml",
-    "earnipay-app-provider-api-openapi.yml",
-    "earnipay-authentication-api-openapi.yml",
-    "earnipay-bank-api-openapi.yml",
-    "earnipay-business-api-openapi.yml",
-    "earnipay-customers-api-openapi.yml",
-    "earnipay-invoices-api-openapi.yml",
-    "earnipay-irn-generator-api-openapi.yml",
-    "earnipay-payment-details-api-openapi.yml",
-    "earnipay-products-api-openapi.yml",
-    "earnipay-qr-code-generator-api-openapi.yml",
-    "earnipay-team-api-openapi.yml",
-    "earnipay-users-api-openapi.yml"
+    "_original/earnipay-e-invoicing-openapi-original.json"
   ],
   "outputs": [
-    "earnipay-app-api-openapi.yml",
     "earnipay-app-provider-api-openapi.yml",
+    "earnipay-app-api-openapi.yml",
     "earnipay-authentication-api-openapi.yml",
     "earnipay-bank-api-openapi.yml",
     "earnipay-business-api-openapi.yml",
     "earnipay-customers-api-openapi.yml",
-    "earnipay-invoices-api-openapi.yml",
     "earnipay-irn-generator-api-openapi.yml",
+    "earnipay-invoices-api-openapi.yml",
     "earnipay-payment-details-api-openapi.yml",
     "earnipay-products-api-openapi.yml",
     "earnipay-qr-code-generator-api-openapi.yml",
@@ -33,6 +21,28 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "earnipay-e-invoicing-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "earnipay-e-invoicing-openapi-original.json: declared missing tag: App",
+    "earnipay-e-invoicing-openapi-original.json: declared missing tag: Bank",
+    "earnipay-e-invoicing-openapi-original.json: declared missing tag: Payment Details",
+    "earnipay-e-invoicing-openapi-original.json: declared missing tag: Products",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "earnipay-app-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-app-provider-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-bank-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-business-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-invoices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-irn-generator-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-payment-details-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-qr-code-generator-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-team-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "earnipay-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

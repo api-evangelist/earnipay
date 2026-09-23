@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Earnipay Invoicing App Products API
+  title: Earnipay Invoicing Products API
   description: FIRS-compliant e-invoicing platform API
   version: '1.0'
   contact: {}
@@ -229,6 +229,48 @@ paths:
       - Products
 components:
   schemas:
+    UpdateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Product name
+          example: Premium Coffee Beans
+          minLength: 2
+          maxLength: 200
+        description:
+          type: string
+          description: Product description
+          example: High-quality Arabica coffee beans from Ethiopia
+        unitPrice:
+          type: number
+          description: Unit price in the base currency
+          example: 5500
+          minimum: 0
+        taxCategory:
+          type: string
+          description: Tax category for the product
+          enum:
+          - STANDARD
+          - ZERO_RATED
+          - EXEMPT
+          - REDUCED
+          - CUSTOM
+          example: STANDARD
+        taxPercent:
+          type: number
+          description: Tax percentage (0-100)
+          example: 7.5
+          minimum: 0
+          maximum: 100
+        unit:
+          type: string
+          description: Unit of measurement
+          example: kg
+        isActive:
+          type: boolean
+          description: Whether the product is active
+          example: true
     CreateProductDto:
       type: object
       properties:
@@ -273,48 +315,6 @@ components:
       - name
       - unitPrice
       - taxPercent
-    UpdateProductDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Product name
-          example: Premium Coffee Beans
-          minLength: 2
-          maxLength: 200
-        description:
-          type: string
-          description: Product description
-          example: High-quality Arabica coffee beans from Ethiopia
-        unitPrice:
-          type: number
-          description: Unit price in the base currency
-          example: 5500
-          minimum: 0
-        taxCategory:
-          type: string
-          description: Tax category for the product
-          enum:
-          - STANDARD
-          - ZERO_RATED
-          - EXEMPT
-          - REDUCED
-          - CUSTOM
-          example: STANDARD
-        taxPercent:
-          type: number
-          description: Tax percentage (0-100)
-          example: 7.5
-          minimum: 0
-          maximum: 100
-        unit:
-          type: string
-          description: Unit of measurement
-          example: kg
-        isActive:
-          type: boolean
-          description: Whether the product is active
-          example: true
   securitySchemes:
     JWT-auth:
       scheme: bearer

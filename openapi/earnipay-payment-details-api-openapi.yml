@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Earnipay Invoicing App Payment Details API
+  title: Earnipay Invoicing Payment Details API
   description: FIRS-compliant e-invoicing platform API
   version: '1.0'
   contact: {}
@@ -137,6 +137,28 @@ paths:
       - Payment Details
 components:
   schemas:
+    UpdatePaymentDetailDto:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Label for the payment detail
+          example: Company GTBank Account
+        type:
+          type: string
+          description: Payment type
+          enum:
+          - BANK_TRANSFER
+          - MOBILE_MONEY
+          - CASH
+          - CREDIT_CARD
+          - OTHER
+        details:
+          type: object
+          description: Payment details as JSON object
+        isDefault:
+          type: boolean
+          description: Whether this is the default payment detail
     CreatePaymentDetailDto:
       type: object
       properties:
@@ -169,28 +191,6 @@ components:
       - label
       - type
       - details
-    UpdatePaymentDetailDto:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Label for the payment detail
-          example: Company GTBank Account
-        type:
-          type: string
-          description: Payment type
-          enum:
-          - BANK_TRANSFER
-          - MOBILE_MONEY
-          - CASH
-          - CREDIT_CARD
-          - OTHER
-        details:
-          type: object
-          description: Payment details as JSON object
-        isDefault:
-          type: boolean
-          description: Whether this is the default payment detail
   securitySchemes:
     JWT-auth:
       scheme: bearer
