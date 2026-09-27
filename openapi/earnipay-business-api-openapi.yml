@@ -471,6 +471,75 @@ paths:
       - Business
 components:
   schemas:
+    UpdateBusinessDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Business name
+          example: Acme Corporation Ltd
+          minLength: 2
+          maxLength: 200
+        businessType:
+          type: string
+          description: Business type
+          example: Limited Liability Company
+        address:
+          type: string
+          description: Street address
+          example: 123 Lagos Street
+        city:
+          type: string
+          description: City
+          example: Lagos
+        state:
+          type: string
+          description: State/Province
+          example: Lagos State
+        country:
+          type: string
+          description: Country
+          example: Nigeria
+        postalCode:
+          type: string
+          description: Postal code
+          example: '100001'
+        logoUrl:
+          type: string
+          description: Logo URL
+          example: https://s3.amazonaws.com/bucket/logo.png
+        autoSubmitToFirs:
+          type: boolean
+          description: Auto-submit invoices to FIRS
+          example: false
+    TestInterswitchConnectionDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Interswitch Client ID
+          example: your-client-id
+        clientSecret:
+          type: string
+          description: Interswitch Client Secret
+          example: your-client-secret
+      required:
+      - clientId
+      - clientSecret
+    UpdateInterswitchCredentialsDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Interswitch Client ID
+          example: your-client-id
+        clientSecret:
+          type: string
+          description: Interswitch Client Secret
+          example: your-client-secret
+      required:
+      - clientId
+      - clientSecret
     TestAppConnectionDto:
       type: object
       properties:
@@ -496,6 +565,23 @@ components:
           type: boolean
           description: Whether to auto-submit approved invoices to FIRS
           example: false
+    UpdateFirsConfigDto:
+      type: object
+      properties:
+        firsBusinessId:
+          type: string
+          description: FIRS Business ID
+          example: FIRS123456
+        firsServiceId:
+          type: string
+          description: FIRS Service ID (8 alphanumeric characters)
+          example: 94ND90NR
+      required:
+      - firsBusinessId
+      - firsServiceId
+    UpdateAppProviderDto:
+      type: object
+      properties: {}
     UpdateAppConfigDto:
       type: object
       properties:
@@ -510,20 +596,6 @@ components:
       required:
       - appApiUrl
       - appApiKey
-    TestInterswitchConnectionDto:
-      type: object
-      properties:
-        clientId:
-          type: string
-          description: Interswitch Client ID
-          example: your-client-id
-        clientSecret:
-          type: string
-          description: Interswitch Client Secret
-          example: your-client-secret
-      required:
-      - clientId
-      - clientSecret
     CreateBusinessDto:
       type: object
       properties:
@@ -589,78 +661,6 @@ components:
       - address
       - city
       - state
-    UpdateBusinessDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Business name
-          example: Acme Corporation Ltd
-          minLength: 2
-          maxLength: 200
-        businessType:
-          type: string
-          description: Business type
-          example: Limited Liability Company
-        address:
-          type: string
-          description: Street address
-          example: 123 Lagos Street
-        city:
-          type: string
-          description: City
-          example: Lagos
-        state:
-          type: string
-          description: State/Province
-          example: Lagos State
-        country:
-          type: string
-          description: Country
-          example: Nigeria
-        postalCode:
-          type: string
-          description: Postal code
-          example: '100001'
-        logoUrl:
-          type: string
-          description: Logo URL
-          example: https://s3.amazonaws.com/bucket/logo.png
-        autoSubmitToFirs:
-          type: boolean
-          description: Auto-submit invoices to FIRS
-          example: false
-    UpdateAppProviderDto:
-      type: object
-      properties: {}
-    UpdateFirsConfigDto:
-      type: object
-      properties:
-        firsBusinessId:
-          type: string
-          description: FIRS Business ID
-          example: FIRS123456
-        firsServiceId:
-          type: string
-          description: FIRS Service ID (8 alphanumeric characters)
-          example: 94ND90NR
-      required:
-      - firsBusinessId
-      - firsServiceId
-    UpdateInterswitchCredentialsDto:
-      type: object
-      properties:
-        clientId:
-          type: string
-          description: Interswitch Client ID
-          example: your-client-id
-        clientSecret:
-          type: string
-          description: Interswitch Client Secret
-          example: your-client-secret
-      required:
-      - clientId
-      - clientSecret
   securitySchemes:
     JWT-auth:
       scheme: bearer

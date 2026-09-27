@@ -137,28 +137,6 @@ paths:
       - Payment Details
 components:
   schemas:
-    UpdatePaymentDetailDto:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Label for the payment detail
-          example: Company GTBank Account
-        type:
-          type: string
-          description: Payment type
-          enum:
-          - BANK_TRANSFER
-          - MOBILE_MONEY
-          - CASH
-          - CREDIT_CARD
-          - OTHER
-        details:
-          type: object
-          description: Payment details as JSON object
-        isDefault:
-          type: boolean
-          description: Whether this is the default payment detail
     CreatePaymentDetailDto:
       type: object
       properties:
@@ -191,6 +169,28 @@ components:
       - label
       - type
       - details
+    UpdatePaymentDetailDto:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Label for the payment detail
+          example: Company GTBank Account
+        type:
+          type: string
+          description: Payment type
+          enum:
+          - BANK_TRANSFER
+          - MOBILE_MONEY
+          - CASH
+          - CREDIT_CARD
+          - OTHER
+        details:
+          type: object
+          description: Payment details as JSON object
+        isDefault:
+          type: boolean
+          description: Whether this is the default payment detail
   securitySchemes:
     JWT-auth:
       scheme: bearer

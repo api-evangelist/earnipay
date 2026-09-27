@@ -59,7 +59,7 @@ tags:
 - Fintech
 - Nigeria
 - Payments
-- Financial-Services
+- Financial Services
 tags_raw:
 - Company
 - E-Invoicing
@@ -72,6 +72,7 @@ tags_raw:
 - Nigeria
 - Payments
 - Financial Services
+- Financial-Services
 apis:
 - aid: earnipay:earnipay-app-api
   name: Earnipay App API
