@@ -211,53 +211,6 @@ paths:
       - Customers
 components:
   schemas:
-    UpdateCustomerDto:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Customer name (person or contact name)
-          example: John Doe
-          minLength: 2
-          maxLength: 200
-        businessName:
-          type: string
-          description: Business/Company name
-          example: Acme Corporation Ltd
-          minLength: 2
-          maxLength: 200
-        tin:
-          type: string
-          description: Tax Identification Number (TIN)
-          example: 12345678-0001
-        email:
-          type: string
-          description: Customer email address
-          example: john.doe@example.com
-        phone:
-          type: string
-          description: Customer phone number
-          example: '+2348012345678'
-        address:
-          type: string
-          description: Street address
-          example: 123 Lagos Street
-        city:
-          type: string
-          description: City
-          example: Lagos
-        state:
-          type: string
-          description: State/Province
-          example: Lagos State
-        country:
-          type: string
-          description: Country
-          example: Nigeria
-        postalCode:
-          type: string
-          description: Postal code
-          example: '100001'
     CreateCustomerDto:
       type: object
       properties:
@@ -308,6 +261,53 @@ components:
           example: '100001'
       required:
       - name
+    UpdateCustomerDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Customer name (person or contact name)
+          example: John Doe
+          minLength: 2
+          maxLength: 200
+        businessName:
+          type: string
+          description: Business/Company name
+          example: Acme Corporation Ltd
+          minLength: 2
+          maxLength: 200
+        tin:
+          type: string
+          description: Tax Identification Number (TIN)
+          example: 12345678-0001
+        email:
+          type: string
+          description: Customer email address
+          example: john.doe@example.com
+        phone:
+          type: string
+          description: Customer phone number
+          example: '+2348012345678'
+        address:
+          type: string
+          description: Street address
+          example: 123 Lagos Street
+        city:
+          type: string
+          description: City
+          example: Lagos
+        state:
+          type: string
+          description: State/Province
+          example: Lagos State
+        country:
+          type: string
+          description: Country
+          example: Nigeria
+        postalCode:
+          type: string
+          description: Postal code
+          example: '100001'
   securitySchemes:
     JWT-auth:
       scheme: bearer
