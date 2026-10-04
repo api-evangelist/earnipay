@@ -94,21 +94,6 @@ paths:
       - Users
 components:
   schemas:
-    ChangePasswordDto:
-      type: object
-      properties:
-        currentPassword:
-          type: string
-          description: Current password
-          example: CurrentPass123!
-        newPassword:
-          type: string
-          description: New password (min 8 chars, uppercase, lowercase, number/special char)
-          example: NewSecurePass123!
-          minLength: 8
-      required:
-      - currentPassword
-      - newPassword
     UpdateUserDto:
       type: object
       properties:
@@ -128,6 +113,21 @@ components:
           type: string
           description: User phone number (Nigerian format)
           example: '+2348012345678'
+    ChangePasswordDto:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+          description: Current password
+          example: CurrentPass123!
+        newPassword:
+          type: string
+          description: New password (min 8 chars, uppercase, lowercase, number/special char)
+          example: NewSecurePass123!
+          minLength: 8
+      required:
+      - currentPassword
+      - newPassword
   securitySchemes:
     JWT-auth:
       scheme: bearer

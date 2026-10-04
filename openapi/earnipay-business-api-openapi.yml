@@ -471,73 +471,6 @@ paths:
       - Business
 components:
   schemas:
-    UpdateAppConfigDto:
-      type: object
-      properties:
-        appApiUrl:
-          type: string
-          description: Access Point Provider (APP) API base URL
-          example: https://app-provider-api.com
-        appApiKey:
-          type: string
-          description: APP API key or credentials
-          example: sk_test_1234567890abcdef
-      required:
-      - appApiUrl
-      - appApiKey
-    UpdateFirsConfigDto:
-      type: object
-      properties:
-        firsBusinessId:
-          type: string
-          description: FIRS Business ID
-          example: FIRS123456
-        firsServiceId:
-          type: string
-          description: FIRS Service ID (8 alphanumeric characters)
-          example: 94ND90NR
-      required:
-      - firsBusinessId
-      - firsServiceId
-    TestInterswitchConnectionDto:
-      type: object
-      properties:
-        clientId:
-          type: string
-          description: Interswitch Client ID
-          example: your-client-id
-        clientSecret:
-          type: string
-          description: Interswitch Client Secret
-          example: your-client-secret
-      required:
-      - clientId
-      - clientSecret
-    UpdateInterswitchCredentialsDto:
-      type: object
-      properties:
-        clientId:
-          type: string
-          description: Interswitch Client ID
-          example: your-client-id
-        clientSecret:
-          type: string
-          description: Interswitch Client Secret
-          example: your-client-secret
-      required:
-      - clientId
-      - clientSecret
-    UpdateBusinessSettingsDto:
-      type: object
-      properties:
-        requireApproval:
-          type: boolean
-          description: Whether invoices require approval before submission
-          example: true
-        autoSubmitToFirs:
-          type: boolean
-          description: Whether to auto-submit approved invoices to FIRS
-          example: false
     UpdateBusinessDto:
       type: object
       properties:
@@ -579,6 +512,31 @@ components:
           type: boolean
           description: Auto-submit invoices to FIRS
           example: false
+    TestInterswitchConnectionDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Interswitch Client ID
+          example: your-client-id
+        clientSecret:
+          type: string
+          description: Interswitch Client Secret
+          example: your-client-secret
+      required:
+      - clientId
+      - clientSecret
+    UpdateBusinessSettingsDto:
+      type: object
+      properties:
+        requireApproval:
+          type: boolean
+          description: Whether invoices require approval before submission
+          example: true
+        autoSubmitToFirs:
+          type: boolean
+          description: Whether to auto-submit approved invoices to FIRS
+          example: false
     TestAppConnectionDto:
       type: object
       properties:
@@ -593,6 +551,51 @@ components:
       required:
       - appApiUrl
       - appApiKey
+    UpdateFirsConfigDto:
+      type: object
+      properties:
+        firsBusinessId:
+          type: string
+          description: FIRS Business ID
+          example: FIRS123456
+        firsServiceId:
+          type: string
+          description: FIRS Service ID (8 alphanumeric characters)
+          example: 94ND90NR
+      required:
+      - firsBusinessId
+      - firsServiceId
+    UpdateAppConfigDto:
+      type: object
+      properties:
+        appApiUrl:
+          type: string
+          description: Access Point Provider (APP) API base URL
+          example: https://app-provider-api.com
+        appApiKey:
+          type: string
+          description: APP API key or credentials
+          example: sk_test_1234567890abcdef
+      required:
+      - appApiUrl
+      - appApiKey
+    UpdateInterswitchCredentialsDto:
+      type: object
+      properties:
+        clientId:
+          type: string
+          description: Interswitch Client ID
+          example: your-client-id
+        clientSecret:
+          type: string
+          description: Interswitch Client Secret
+          example: your-client-secret
+      required:
+      - clientId
+      - clientSecret
+    UpdateAppProviderDto:
+      type: object
+      properties: {}
     CreateBusinessDto:
       type: object
       properties:
@@ -658,9 +661,6 @@ components:
       - address
       - city
       - state
-    UpdateAppProviderDto:
-      type: object
-      properties: {}
   securitySchemes:
     JWT-auth:
       scheme: bearer

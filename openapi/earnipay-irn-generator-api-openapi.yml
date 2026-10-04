@@ -38,6 +38,23 @@ paths:
       - IRN Generator
 components:
   schemas:
+    GenerateIrnResponse:
+      type: object
+      properties:
+        irn:
+          type: string
+          description: Generated Invoice Reference Number
+          example: INV0001-94ND90NR-20240611
+        components:
+          type: object
+          description: Components of the IRN
+          example:
+            invoiceNumber: INV0001
+            serviceId: 94ND90NR
+            datestamp: '20240611'
+      required:
+      - irn
+      - components
     GenerateIrnDto:
       type: object
       properties:
@@ -57,23 +74,6 @@ components:
       - invoiceNumber
       - serviceId
       - issueDate
-    GenerateIrnResponse:
-      type: object
-      properties:
-        irn:
-          type: string
-          description: Generated Invoice Reference Number
-          example: INV0001-94ND90NR-20240611
-        components:
-          type: object
-          description: Components of the IRN
-          example:
-            invoiceNumber: INV0001
-            serviceId: 94ND90NR
-            datestamp: '20240611'
-      required:
-      - irn
-      - components
   securitySchemes:
     JWT-auth:
       scheme: bearer

@@ -246,6 +246,21 @@ paths:
       - Team
 components:
   schemas:
+    AcceptInvitationDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name (required for new users)
+          example: John
+        lastName:
+          type: string
+          description: Last name (required for new users)
+          example: Doe
+        password:
+          type: string
+          description: Password (required for new users, min 8 chars)
+          example: MyP@ssw0rd
     UpdateMemberRoleDto:
       type: object
       properties:
@@ -281,21 +296,6 @@ components:
       required:
       - email
       - role
-    AcceptInvitationDto:
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: First name (required for new users)
-          example: John
-        lastName:
-          type: string
-          description: Last name (required for new users)
-          example: Doe
-        password:
-          type: string
-          description: Password (required for new users, min 8 chars)
-          example: MyP@ssw0rd
   securitySchemes:
     JWT-auth:
       scheme: bearer
