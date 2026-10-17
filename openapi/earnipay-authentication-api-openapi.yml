@@ -151,6 +151,29 @@ paths:
       - Authentication
 components:
   schemas:
+    LoginDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+        password:
+          type: string
+          example: StrongP@ss123
+          description: User password
+      required:
+      - email
+      - password
+    ResendCodeDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+      required:
+      - email
     VerifyEmailDto:
       type: object
       properties:
@@ -167,6 +190,30 @@ components:
       required:
       - email
       - code
+    ResetPasswordDto:
+      type: object
+      properties:
+        token:
+          type: string
+          example: abc123def456...
+          description: Password reset token from email
+        newPassword:
+          type: string
+          example: NewStrongP@ss123
+          description: New password
+          minLength: 8
+      required:
+      - token
+      - newPassword
+    ForgotPasswordDto:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john.doe@example.com
+          description: User email address
+      required:
+      - email
     SignupDto:
       type: object
       properties:
@@ -190,30 +237,6 @@ components:
       required:
       - email
       - password
-    ResendCodeDto:
-      type: object
-      properties:
-        email:
-          type: string
-          example: john.doe@example.com
-          description: User email address
-      required:
-      - email
-    ResetPasswordDto:
-      type: object
-      properties:
-        token:
-          type: string
-          example: abc123def456...
-          description: Password reset token from email
-        newPassword:
-          type: string
-          example: NewStrongP@ss123
-          description: New password
-          minLength: 8
-      required:
-      - token
-      - newPassword
     RefreshTokenDto:
       type: object
       properties:
@@ -223,29 +246,6 @@ components:
           description: Refresh token
       required:
       - refreshToken
-    ForgotPasswordDto:
-      type: object
-      properties:
-        email:
-          type: string
-          example: john.doe@example.com
-          description: User email address
-      required:
-      - email
-    LoginDto:
-      type: object
-      properties:
-        email:
-          type: string
-          example: john.doe@example.com
-          description: User email address
-        password:
-          type: string
-          example: StrongP@ss123
-          description: User password
-      required:
-      - email
-      - password
   securitySchemes:
     JWT-auth:
       scheme: bearer

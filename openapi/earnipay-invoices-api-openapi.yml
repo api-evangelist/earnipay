@@ -438,108 +438,6 @@ paths:
       - Invoices
 components:
   schemas:
-    UpdateInvoiceDto:
-      type: object
-      properties:
-        customerId:
-          type: string
-          description: Customer ID
-          example: 123e4567-e89b-12d3-a456-426614174000
-        issueDate:
-          type: string
-          description: Invoice issue date (ISO 8601)
-          example: '2025-10-25T00:00:00.000Z'
-        dueDate:
-          type: string
-          description: Invoice due date (ISO 8601)
-          example: '2025-11-01T00:00:00.000Z'
-        items:
-          description: Invoice items (replaces all existing items)
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/InvoiceItemDto'
-        paymentTerms:
-          type: string
-          description: Payment terms
-          example: Payment due within 7 days
-        paymentMethod:
-          type: string
-          description: Payment method
-          example: Bank Transfer
-        paymentDetails:
-          type: string
-          description: Payment details (JSON string)
-          example: '{"accountName":"John Doe Enterprises","accountNumber":"09090828929","bankName":"Access Bank"}'
-        notes:
-          type: string
-          description: Additional notes
-          example: Thank you for your business
-        internalNotes:
-          type: string
-          description: Internal notes
-          example: Rush order
-    RejectInvoiceDto:
-      type: object
-      properties:
-        reason:
-          type: string
-          description: Reason for rejection
-          example: Incorrect pricing on line item 2
-        comments:
-          type: string
-          description: Additional comments
-      required:
-      - reason
-    ValidateInvoiceResponse:
-      type: object
-      properties:
-        valid:
-          type: boolean
-          description: Whether the invoice data is valid according to FIRS schema
-          example: true
-        errors:
-          description: List of validation errors (empty if valid)
-          example: []
-          type: array
-          items:
-            type: string
-        warnings:
-          description: List of warnings for non-critical issues
-          example:
-          - TIN format should follow XX-XXXX-XXXX pattern
-          type: array
-          items:
-            type: string
-        details:
-          type: object
-          description: Detailed validation breakdown
-          example:
-            hasRequiredFields: true
-            hasValidIRN: true
-            hasValidParties: true
-            hasValidLineItems: true
-            hasValidTotals: true
-            hasValidTaxTotal: true
-        summary:
-          type: object
-          description: Summary of what was validated
-          example:
-            totalLineItems: 1
-            totalAmount: 10750
-            currencyCode: NGN
-      required:
-      - valid
-      - errors
-      - warnings
-      - details
-    ApproveInvoiceDto:
-      type: object
-      properties:
-        comments:
-          type: string
-          description: Optional comments for the approval
-          example: Looks good, approved.
     InvoiceItemDto:
       type: object
       properties:
@@ -583,19 +481,51 @@ components:
       - quantity
       - unitPrice
       - taxPercent
-    CreateInvoiceDto:
+    ValidateInvoiceResponse:
       type: object
       properties:
-        invoiceType:
-          type: string
-          description: Invoice type
-          example: STANDARD
-          enum:
-          - STANDARD
-          - PROFORMA
-          - CREDIT_NOTE
-          - DEBIT_NOTE
-          default: STANDARD
+        valid:
+          type: boolean
+          description: Whether the invoice data is valid according to FIRS schema
+          example: true
+        errors:
+          description: List of validation errors (empty if valid)
+          example: []
+          type: array
+          items:
+            type: string
+        warnings:
+          description: List of warnings for non-critical issues
+          example:
+          - TIN format should follow XX-XXXX-XXXX pattern
+          type: array
+          items:
+            type: string
+        details:
+          type: object
+          description: Detailed validation breakdown
+          example:
+            hasRequiredFields: true
+            hasValidIRN: true
+            hasValidParties: true
+            hasValidLineItems: true
+            hasValidTotals: true
+            hasValidTaxTotal: true
+        summary:
+          type: object
+          description: Summary of what was validated
+          example:
+            totalLineItems: 1
+            totalAmount: 10750
+            currencyCode: NGN
+      required:
+      - valid
+      - errors
+      - warnings
+      - details
+    UpdateInvoiceDto:
+      type: object
+      properties:
         customerId:
           type: string
           description: Customer ID
@@ -609,7 +539,7 @@ components:
           description: Invoice due date (ISO 8601)
           example: '2025-11-01T00:00:00.000Z'
         items:
-          description: Invoice items (line items)
+          description: Invoice items (replaces all existing items)
           minItems: 1
           type: array
           items:
@@ -622,32 +552,18 @@ components:
           type: string
           description: Payment method
           example: Bank Transfer
-          enum:
-          - Bank Transfer
-          - Cash
-          - Credit Card
-          - Mobile Money
-          - Other
         paymentDetails:
           type: string
-          description: Payment details (JSON string with account info). Ignored if paymentDetailId is provided.
+          description: Payment details (JSON string)
           example: '{"accountName":"John Doe Enterprises","accountNumber":"09090828929","bankName":"Access Bank"}'
-        paymentDetailId:
-          type: string
-          description: ID of a saved PaymentDetail to use. Overrides paymentDetails field.
-          example: 123e4567-e89b-12d3-a456-426614174000
         notes:
           type: string
-          description: Additional notes for the customer
+          description: Additional notes
           example: Thank you for your business
         internalNotes:
           type: string
-          description: Internal notes (not visible to customer)
-          example: Rush order - deliver before Nov 1st
-      required:
-      - customerId
-      - issueDate
-      - items
+          description: Internal notes
+          example: Rush order
     ValidateInvoiceDataDto:
       type: object
       properties:
@@ -745,6 +661,90 @@ components:
       - invoice_line
       - legal_monetary_total
       - tax_total
+    CreateInvoiceDto:
+      type: object
+      properties:
+        invoiceType:
+          type: string
+          description: Invoice type
+          example: STANDARD
+          enum:
+          - STANDARD
+          - PROFORMA
+          - CREDIT_NOTE
+          - DEBIT_NOTE
+          default: STANDARD
+        customerId:
+          type: string
+          description: Customer ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+        issueDate:
+          type: string
+          description: Invoice issue date (ISO 8601)
+          example: '2025-10-25T00:00:00.000Z'
+        dueDate:
+          type: string
+          description: Invoice due date (ISO 8601)
+          example: '2025-11-01T00:00:00.000Z'
+        items:
+          description: Invoice items (line items)
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItemDto'
+        paymentTerms:
+          type: string
+          description: Payment terms
+          example: Payment due within 7 days
+        paymentMethod:
+          type: string
+          description: Payment method
+          example: Bank Transfer
+          enum:
+          - Bank Transfer
+          - Cash
+          - Credit Card
+          - Mobile Money
+          - Other
+        paymentDetails:
+          type: string
+          description: Payment details (JSON string with account info). Ignored if paymentDetailId is provided.
+          example: '{"accountName":"John Doe Enterprises","accountNumber":"09090828929","bankName":"Access Bank"}'
+        paymentDetailId:
+          type: string
+          description: ID of a saved PaymentDetail to use. Overrides paymentDetails field.
+          example: 123e4567-e89b-12d3-a456-426614174000
+        notes:
+          type: string
+          description: Additional notes for the customer
+          example: Thank you for your business
+        internalNotes:
+          type: string
+          description: Internal notes (not visible to customer)
+          example: Rush order - deliver before Nov 1st
+      required:
+      - customerId
+      - issueDate
+      - items
+    ApproveInvoiceDto:
+      type: object
+      properties:
+        comments:
+          type: string
+          description: Optional comments for the approval
+          example: Looks good, approved.
+    RejectInvoiceDto:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: Reason for rejection
+          example: Incorrect pricing on line item 2
+        comments:
+          type: string
+          description: Additional comments
+      required:
+      - reason
   securitySchemes:
     JWT-auth:
       scheme: bearer
