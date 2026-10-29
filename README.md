@@ -64,6 +64,137 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Earnipay is a company surfaced as a portfolio company of canaan-partners and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Earnipay is a Nigerian fintech that operates an NRS/FIRS-compliant e-invoicing platform for businesses. As an accredited Nigeria Revenue Service (NRS) and NITDA systems integrator, Earnipay lets developers programmatically create businesses, manage customers and products, generate FIRS-compliant invoices with IRN (Invoice Reference Number) and QR codes, and submit them to the tax authority through an Access Point Provider (APP) connection. The public Earnipay Invoicing API is an OpenAPI 3.0.0 REST service covering authentication, businesses, customers, products, payment details, invoices, IRN and QR generation, bank lookup/verification, and team management. It authenticates with JWT bearer tokens for user-facing flows and an X-API-Key header for third-party integrations. Added to the API Evangelist network as a portfolio company of Canaan Partners.
 
-Backed by: canaan-partners
+**Areas:** Company · E-Invoicing · Invoicing · FIRS · NRS · Tax · Compliance · Fintech · Nigeria · Payments · Financial Services
+
+## Earnipay on APIs.io
+
+Everything profiled for Earnipay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/earnipay/](https://apis.io/providers/earnipay/)** — or go straight to one of the APIs or properties below.
+
+### APIs (13)
+
+- [Earnipay App API](https://apis.io/apis/earnipay/earnipay-app-api/) — The App API from Earnipay — 1 operation(s) for app.
+- [Earnipay APP Provider API](https://apis.io/apis/earnipay/earnipay-app-provider-api/) — Third-party APP provider integration (Taxly) for FIRS submission
+- [Earnipay Authentication API](https://apis.io/apis/earnipay/earnipay-authentication-api/) — User authentication and authorization endpoints
+- [Earnipay Bank API](https://apis.io/apis/earnipay/earnipay-bank-api/) — The Bank API from Earnipay — 2 operation(s) for bank.
+- [Earnipay Business API](https://apis.io/apis/earnipay/earnipay-business-api/) — Business profile management and FIRS configuration
+- [Earnipay Customers API](https://apis.io/apis/earnipay/earnipay-customers-api/) — Customer management for invoicing
+- [Earnipay Invoices API](https://apis.io/apis/earnipay/earnipay-invoices-api/) — Invoice creation, management, and FIRS validation
+- [Earnipay IRN Generator API](https://apis.io/apis/earnipay/earnipay-irn-generator-api/) — Generate FIRS-compliant Invoice Reference Numbers
+- [Earnipay Payment Details API](https://apis.io/apis/earnipay/earnipay-payment-details-api/) — The Payment Details API from Earnipay — 2 operation(s) for payment details.
+- [Earnipay Products API](https://apis.io/apis/earnipay/earnipay-products-api/) — The Products API from Earnipay — 2 operation(s) for products.
+- [Earnipay QR Code Generator API](https://apis.io/apis/earnipay/earnipay-qr-code-generator-api/) — Generate FIRS-compliant encrypted QR codes for invoices
+- [Earnipay Team API](https://apis.io/apis/earnipay/earnipay-team-api/) — Team member and invitation management
+- [Earnipay Users API](https://apis.io/apis/earnipay/earnipay-users-api/) — User profile management
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [earnipay-invoicing](https://apis.io/servers/earnipay/earnipay-invoicing/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Earnipay Agentic Access](https://apis.io/agentic-access/earnipay/earnipay-agentic-access/)
+
+#### Collections (13)
+
+Postman and Open Collection request collections.
+
+- [Earnipay Invoicing App API](https://apis.io/collections/earnipay/open-earnipay-app-api/)
+- [Earnipay Invoicing App APP Provider API](https://apis.io/collections/earnipay/open-earnipay-app-provider-api/)
+- [Earnipay Invoicing App Authentication API](https://apis.io/collections/earnipay/open-earnipay-authentication-api/)
+- [Earnipay Invoicing App Bank API](https://apis.io/collections/earnipay/open-earnipay-bank-api/)
+- [Earnipay Invoicing App Business API](https://apis.io/collections/earnipay/open-earnipay-business-api/)
+- [Earnipay Invoicing App Customers API](https://apis.io/collections/earnipay/open-earnipay-customers-api/)
+- [Earnipay Invoicing App Invoices API](https://apis.io/collections/earnipay/open-earnipay-invoices-api/)
+- [Earnipay Invoicing App IRN Generator API](https://apis.io/collections/earnipay/open-earnipay-irn-generator-api/)
+- [Earnipay Invoicing App Payment Details API](https://apis.io/collections/earnipay/open-earnipay-payment-details-api/)
+- [Earnipay Invoicing App Products API](https://apis.io/collections/earnipay/open-earnipay-products-api/)
+- [Earnipay Invoicing App QR Code Generator API](https://apis.io/collections/earnipay/open-earnipay-qr-code-generator-api/)
+- [Earnipay Invoicing App Team API](https://apis.io/collections/earnipay/open-earnipay-team-api/)
+- [Earnipay Invoicing App Users API](https://apis.io/collections/earnipay/open-earnipay-users-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Earnipay E Invoicing Overlay](https://apis.io/overlays/earnipay/earnipay-e-invoicing-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Earnipay Authentication](https://apis.io/security/earnipay/earnipay-authentication/)
+- [Earnipay Domain Security](https://apis.io/security/earnipay/earnipay-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://earnipay.com/)
+- [Documentation](https://docs.earnipay.com/docs/e-invoice)
+- [Getting started](https://docs.earnipay.com/docs/e-invoice)
+- [API reference](https://e-invoicing.earnipay.com/api/docs)
+- [Blog](https://www.earnipay.com/blog/)
+- [GitHub](https://github.com/Earnipay)
+
+## API Evangelist rating
+
+**Kin Score 22.6** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 44.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 23.2 |
+| Access clarity | 0.0 |
+
+**Agent readiness 25.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.2** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/earnipay/](https://apis.io/providers/earnipay/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Earnipay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/earnipay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
